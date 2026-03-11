@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+/* PP Right Grotesk Mono — self-hosted */
+@font-face {
+  font-family: 'PP Right Grotesk Mono';
+  src: url('/fonts/PPRightGroteskMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Right Grotesk Mono';
+  src: url('/fonts/PPRightGroteskMono-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Right Grotesk Mono';
+  src: url('/fonts/PPRightGroteskMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 20% 96%;
+    --foreground: 0 0% 10%;
+
+    --card: 40 20% 96%;
+    --card-foreground: 0 0% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+
+    --primary: 0 0% 10%;
+    --primary-foreground: 40 20% 96%;
+
+    --secondary: 0 0% 93%;
+    --secondary-foreground: 0 0% 10%;
+
+    --muted: 40 10% 90%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 40 10% 88%;
+    --accent-foreground: 0 0% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 40 10% 88%;
+    --input: 40 10% 88%;
+    --ring: 0 0% 10%;
+
+    --radius: 1rem;
+
+    /* Atrium custom tokens */
+    --cream: 40 20% 96%;
+    --charcoal: 0 0% 10%;
+    --pill-bg: 0 0% 10%;
+    --pill-active: 0 0% 100%;
+    --pill-radius: 9999px;
+    --card-radius: 1rem;
+    --atrium-yellow: 66 100% 81%;
+
+    /* Status colors */
+    --status-in-progress: 43 96% 56%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'DM Sans', sans-serif;
+    background-color: hsl(var(--cream));
+  }
+}
+
+/* Pill navigation styles */
+.atrium-pill {
+  background-color: hsl(var(--charcoal));
+  border-radius: 9999px;
+  padding: 6px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+}
+
+.atrium-pill-btn {
+  border-radius: 9999px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.4);
+}
+
+.atrium-pill-btn.active {
+  background: white;
+  color: hsl(var(--charcoal));
+  border-color: white;
+}
+
+.atrium-pill-btn:hover:not(.active) {
+  color: rgba(255,255,255,0.9);
+}
