@@ -328,7 +328,7 @@ export default function Landing() {
   useEffect(() => {
     const interval = setInterval(() => {
       setWordIndex((prev) => (prev + 1) % words.length);
-    }, 2500);
+    }, 1500);
     return () => clearInterval(interval);
   }, []);
 
@@ -436,7 +436,7 @@ export default function Landing() {
           }
 
           .animate-char-in {
-            animation: char-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            animation: char-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
             opacity: 0;
             filter: blur(40px);
             transform: translateY(100%);
