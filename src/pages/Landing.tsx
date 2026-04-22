@@ -955,7 +955,7 @@ export default function Landing() {
                 playsInline
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               >
-                <source src="/makemeasuredemo.mp4" type="video/mp4" />
+                <source src="https://k1tncygcdn6g5xor.public.blob.vercel-storage.com/makemeasuredemo.mp4" type="video/mp4" />
               </video>
             </div>
           </div>
@@ -1456,7 +1456,7 @@ export default function Landing() {
                     playsInline
                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   >
-                    <source src="/MM_MakeMode.mp4" type="video/mp4" />
+                    <source src="https://k1tncygcdn6g5xor.public.blob.vercel-storage.com/MakeMode.mp4" type="video/mp4" />
                   </video>
                 </div>
               </div>
@@ -1558,7 +1558,7 @@ export default function Landing() {
                     playsInline
                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   >
-                    <source src="/MM_ShipMode.mp4" type="video/mp4" />
+                    <source src="https://k1tncygcdn6g5xor.public.blob.vercel-storage.com/ShipMode.mp4" type="video/mp4" />
                   </video>
                 </div>
               </div>
@@ -1660,7 +1660,7 @@ export default function Landing() {
                     playsInline
                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   >
-                    <source src="/MM_MeasureMode.mp4" type="video/mp4" />
+                    <source src="https://k1tncygcdn6g5xor.public.blob.vercel-storage.com/MeasureMode.mp4" type="video/mp4" />
                   </video>
                 </div>
               </div>
@@ -2103,7 +2103,7 @@ Make Measure is the tool I always wanted. I built it after years of seeing strat
                   borderRadius: 16,
                 }}
               >
-                <source src="/makemeasuredemo.mp4" type="video/mp4" />
+                <source src="https://k1tncygcdn6g5xor.public.blob.vercel-storage.com/makemeasuredemo.mp4" type="video/mp4" />
               </video>
             </div>
           </div>
