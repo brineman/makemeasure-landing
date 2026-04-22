@@ -2103,7 +2103,7 @@ Make Measure is the tool I always wanted. I built it after years of seeing strat
                   borderRadius: 16,
                 }}
               >
-                <source src="https://k1tncygcdn6g5xor.public.blob.vercel-storage.com/makemeasuredemo.mp4" type="video/mp4" />
+                <source src="https://k1tncygcdn6g5xor.public.blob.vercel-storage.com/MakeMeasureDemoFull.mp4" type="video/mp4" />
               </video>
             </div>
           </div>
