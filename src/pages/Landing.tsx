@@ -938,6 +938,7 @@ export default function Landing() {
           >
             <div
               className="hero-video-frame"
+              onClick={() => setShowDemoModal(true)}
               style={{
                 width: `${40 + videoScale * 55}%`,
                 maxWidth: 1100,
@@ -946,6 +947,7 @@ export default function Landing() {
                 overflow: "hidden",
                 boxShadow: `0 ${8 + videoScale * 12}px ${40 + videoScale * 30}px rgba(0,0,0,${0.08 + videoScale * 0.1})`,
                 backgroundColor: "#1C1A1F",
+                cursor: "pointer",
               }}
             >
               <video
