@@ -15,7 +15,7 @@ const navLinks = [
   { name: "About", href: "#about" },
 ];
 
-const words = ["make", "ship", "measure"];
+const words = ["Make", "Ship", "Measure"];
 
 const colors = {
   background: "#F9F8F6",
@@ -126,11 +126,12 @@ function DotGrid({ id }: { id: string }) {
 
 /* ─── Stepped Lines Animation (Section 2) ─── */
 const steppedLineTexts = [
-  "The brief still lives in a doc nobody reopened.",
-  "The creative is built in 3 other tools.",
-  "The project is managed in another.",
+  "The brief lives in a doc nobody reopened.",
+  "The creative is made somewhere else entirely.",
+  "The project is managed in another tool.",
   "The feedback happens in a thread nobody can find.",
   "The performance lives in yet another dashboard.",
+  "And the connection between them lives in someone's head.",
 ];
 
 function SteppedLines() {
@@ -168,7 +169,7 @@ function SteppedLines() {
             position: "absolute",
             left: "50%",
             transform: "translateX(-50%)",
-            top: activeIndex >= 0 ? activeIndex * 85 + 52 : 52,
+            top: activeIndex >= 0 ? activeIndex * 81 + 52 : 52,
             width: 10,
             height: 10,
             borderRadius: 9999,
@@ -202,7 +203,7 @@ function SteppedLines() {
             <div
               style={{
                 fontFamily: FONT_BODY,
-                fontSize: 18,
+                fontSize: 16,
                 color: "#1C1A1F",
                 transition: "opacity 0.6s ease",
                 opacity: activeIndex >= i ? 1 : 0.3,
@@ -247,6 +248,8 @@ export default function Landing() {
   const section4Ref = useRef<HTMLElement>(null);
   const section8Ref = useRef<HTMLElement>(null);
   const section9Ref = useRef<HTMLElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const [videoScale, setVideoScale] = useState(0);
   const [section3Near, setSection3Near] = useState(false);
   const [section4Near, setSection4Near] = useState(false);
   const [section8Near, setSection8Near] = useState(false);
@@ -269,6 +272,31 @@ export default function Landing() {
     const handleScroll = () => setIsScrolled(container.scrollTop > 20);
     container.addEventListener("scroll", handleScroll);
     return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    const hero = heroRef.current;
+    if (!container || !hero) return;
+
+    const handleVideoScale = () => {
+      const scrollTop = container.scrollTop;
+      const heroTop = hero.offsetTop;
+      const heroHeight = hero.offsetHeight;
+      const viewportHeight = container.clientHeight;
+
+      // How far through the hero we've scrolled (0 to 1)
+      const progress = Math.max(0, Math.min(1,
+        (scrollTop - heroTop) / (heroHeight - viewportHeight)
+      ));
+
+      // Ease-out curve for smooth feel
+      const eased = 1 - Math.pow(1 - progress, 2);
+      setVideoScale(eased);
+    };
+
+    container.addEventListener("scroll", handleVideoScale);
+    return () => container.removeEventListener("scroll", handleVideoScale);
   }, []);
 
   // Shader visibility (GPU management — mount when Section 3, 4, 8, or 9 is near viewport)
@@ -431,7 +459,7 @@ export default function Landing() {
         style={{
           height: "100vh",
           overflowY: "auto",
-          scrollSnapType: "y mandatory",
+          scrollSnapType: "y proximity",
           scrollBehavior: "smooth",
           backgroundColor: "#F8F8F6",
           color: colors.foreground,
@@ -483,12 +511,18 @@ export default function Landing() {
               {/* Logo */}
               <a
                 href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollContainerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+                  setIsMobileMenuOpen(false);
+                }}
                 style={{
                   display: "flex",
                   alignItems: "center",
                   gap: "8px",
                   textDecoration: "none",
                   color: colors.foreground,
+                  cursor: "pointer",
                 }}
               >
                 <img src="/MakeMeasureLogotype.png" alt="Make Measure" style={{ height: 18 }} />
@@ -596,6 +630,29 @@ export default function Landing() {
             }}
             className="mobile-menu"
           >
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              style={{
+                position: "absolute",
+                top: 24,
+                right: 24,
+                zIndex: 10,
+                width: 40,
+                height: 40,
+                borderRadius: "50%",
+                background: "none",
+                border: `1px solid ${colors.border}`,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: colors.foreground,
+                fontSize: 20,
+              }}
+              aria-label="Close menu"
+            >
+              ×
+            </button>
             <div
               style={{
                 display: "flex",
@@ -694,27 +751,24 @@ export default function Landing() {
 
         {/* ═══════════════════════ SECTION 1: HERO ═══════════════════════ */}
         <section
+          ref={heroRef}
+          className="hero-section"
           style={{
             position: "relative",
-            minHeight: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            overflow: "hidden",
+            height: "160vh",
             backgroundColor: "#F8F8F6",
             zIndex: 1,
-            scrollSnapAlign: "start",
-            scrollSnapStop: "always",
             paddingTop: 80,
           }}
         >
-          {/* Gradient + Dot Grid (hero only) */}
+          {/* Gradient + Dot Grid */}
           <div
             style={{
               position: "absolute",
               top: 0,
               left: 0,
               right: 0,
-              height: "100vh",
+              height: "100%",
               overflow: "hidden",
               pointerEvents: "none",
             }}
@@ -723,7 +777,7 @@ export default function Landing() {
               style={{
                 position: "absolute",
                 inset: 0,
-                background: `radial-gradient(ellipse at 70% 20%, ${colors.accent}40 0%, transparent 50%)`,
+                // background: `radial-gradient(ellipse at 70% 20%, ${colors.accent}40 0%, transparent 50%)`,
               }}
             />
             <div style={{ position: "absolute", inset: 0, opacity: 0.4 }}>
@@ -738,72 +792,31 @@ export default function Landing() {
             </div>
           </div>
 
-          {/* HERO COLLAGE — commented out, uncomment to restore */}
-          {/*
-          <div className="floating-images" style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none" }}>
-            {[
-              { top: "4%", left: "-3%", w: 75, h: 105, dur: 10, delay: -4, src: "/HeroImages/Image4.png" },
-              { top: "12%", left: "17%", w: 98, h: 60, dur: 12, delay: -7, src: "/HeroImages/Image9.png" },
-              { top: "38%", left: "-2%", w: 83, h: 83, dur: 9, delay: -3, src: "/HeroImages/Image1.png" },
-              { top: "50%", left: "13%", w: 68, h: 98, dur: 11, delay: -9, src: "/HeroImages/Image6.png" },
-              { top: "68%", left: "3%", w: 98, h: 64, dur: 8, delay: -5, src: "/HeroImages/Image12.png" },
-              { top: "86%", left: "28%", w: 71, h: 98, dur: 13, delay: -8, src: "/HeroImages/Image13.png" },
-              { top: "92%", left: "6%", w: 105, h: 71, dur: 10, delay: -6, src: "/HeroImages/Image3.png" },
-              { top: "2%", left: "68%", w: 75, h: 105, dur: 11, delay: -5, src: "/HeroImages/Image5.png" },
-              { top: "12%", left: "87%", w: 75, h: 75, dur: 9, delay: -8, src: "/HeroImages/Image11.png" },
-              { top: "32%", left: "94%", w: 105, h: 83, dur: 14, delay: -3, src: "/HeroImages/Image10.png" },
-              { top: "36%", left: "82%", w: 68, h: 90, dur: 10, delay: -7, src: "/HeroImages/Image7.png" },
-              { top: "60%", left: "78%", w: 98, h: 68, dur: 12, delay: -9, src: "/HeroImages/Image2.png" },
-              { top: "78%", left: "88%", w: 75, h: 98, dur: 8, delay: -4, src: "/HeroImages/Image8.png" },
-              { top: "92%", left: "70%", w: 64, h: 113, dur: 11, delay: -6, src: "/HeroImages/Image14.png" },
-            ].map((img, i) => (
-              <div
-                key={i}
-                style={{
-                  position: "absolute",
-                  top: img.top,
-                  left: img.left,
-                  width: img.w,
-                  height: img.h,
-                  borderRadius: 6,
-                  overflow: "hidden",
-                  boxShadow: "0 4px 16px rgba(0,0,0,0.06)",
-                  animation: `subtleFloat ${img.dur}s ease-in-out infinite`,
-                  animationDelay: `${img.delay}s`,
-                  opacity: 0,
-                  transition: `opacity 1.5s ease ${i * 200}ms`,
-                  ...(isVisible ? { opacity: 1 } : {}),
-                }}
-              >
-                <img src={img.src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 6, display: "block" }} />
-              </div>
-            ))}
-          </div>
-          */}
-
-          {/* TOP ZONE — Headline */}
+          {/* Text block — static at top */}
           <div
-            className="hero-top-zone"
+            className="hero-text-block"
             style={{
               position: "relative",
               zIndex: 10,
               textAlign: "center",
-              padding: "16px 24px 0",
-              transition: "opacity 1s ease, transform 1s ease",
+              padding: "100px 24px 48px",
+              maxWidth: 1000,
+              margin: "0 auto",
+              transition: "opacity .5s ease, transform .5s ease",
               opacity: isVisible ? 1 : 0,
               transform: isVisible ? "translateY(0)" : "translateY(32px)",
             }}
           >
             <h1
               style={{
-                fontSize: "clamp(1.5rem, 3.5vw, 2.5rem)",
+                fontSize: "clamp(4rem, 10vw, 10rem)",
                 fontFamily: fonts.display,
                 lineHeight: 1.0,
-                letterSpacing: "-0.02em",
-                margin: 0,
+                letterSpacing: "-0.03em",
+                margin: "0 0 24px",
+                color: colors.foreground,
               }}
             >
-              The space to{" "}
               <span
                 style={{
                   position: "relative",
@@ -813,7 +826,7 @@ export default function Landing() {
                   paddingBottom: "8px",
                   marginBottom: "-8px",
                   minWidth: "4.5em",
-                  textAlign: "left",
+                  textAlign: "center",
                 }}
               >
                 <span key={wordIndex} style={{ display: "inline-flex" }}>
@@ -832,98 +845,18 @@ export default function Landing() {
                 </span>
               </span>
             </h1>
-          </div>
 
-          {/* MIDDLE ZONE — Video */}
-          <div
-            style={{
-              position: "relative",
-              zIndex: 10,
-              flex: 1,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "16px 48px",
-            }}
-            className="hero-video-zone"
-          >
-            <div
-              style={{
-                width: "100%",
-                maxWidth: 1000,
-                maxHeight: "calc(100vh - 320px)",
-                aspectRatio: "16 / 9",
-                borderRadius: 16,
-                overflow: "hidden",
-                boxShadow: "0 8px 40px rgba(0,0,0,0.12)",
-                backgroundColor: "#1C1A1F",
-                margin: "0 auto",
-                position: "relative",
-              }}
-            >
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-              >
-                <source src="/demo.mp4" type="video/mp4" />
-              </video>
-              {/* Placeholder shown until video loads */}
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  pointerEvents: "none",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: FONT_MONO,
-                    fontSize: 12,
-                    color: "rgba(255,255,255,0.2)",
-                  }}
-                >
-                  Product demo
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* BOTTOM ZONE — Subhead + CTAs */}
-          <div
-            style={{
-              position: "relative",
-              zIndex: 10,
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-end",
-              padding: "16px 0 48px",
-              maxWidth: 1000,
-              width: "100%",
-              margin: "0 auto",
-              transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? "translateY(0)" : "translateY(16px)",
-            }}
-            className="hero-bottom"
-          >
             <p
               style={{
                 fontFamily: fonts.body,
-                fontSize: 16,
+                fontSize: "clamp(1rem, 2vw, 1.1rem)",
                 color: colors.muted,
-                maxWidth: 420,
-                lineHeight: 1.5,
-                textAlign: "left",
-                margin: 0,
+                maxWidth: 560,
+                lineHeight: 1.3,
+                margin: "0 auto 40px",
               }}
             >
-              Where creatives form strategy, manage projects, publish work, and measure what's actually working.
+             One creative workspace where building strategy, managing projects, posting content, and measuring performance work together.
             </p>
 
             <div
@@ -931,6 +864,7 @@ export default function Landing() {
                 display: "flex",
                 flexDirection: "row",
                 gap: 16,
+                justifyContent: "center",
                 alignItems: "center",
               }}
               className="hero-ctas"
@@ -946,22 +880,18 @@ export default function Landing() {
                   color: colors.background,
                   border: "none",
                   borderRadius: "9999px",
-                  padding: "12px 24px",
+                  padding: "14px 28px",
                   fontSize: "14px",
                   fontFamily: fonts.display,
-                  fontWeight: 500,
+                  fontWeight: 300,
                   cursor: "pointer",
                   transition: "all 0.3s ease",
                   textDecoration: "none",
                   width: 200,
                   textAlign: "center",
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.opacity = "0.9";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.opacity = "1";
-                }}
+                onMouseEnter={(e) => { e.currentTarget.style.opacity = "0.9"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"; }}
               >
                 Try Make Measure →
               </a>
@@ -974,25 +904,59 @@ export default function Landing() {
                   color: colors.foreground,
                   border: `1px solid ${colors.border}`,
                   borderRadius: "9999px",
-                  padding: "12px 24px",
+                  padding: "14px 28px",
                   fontSize: "14px",
-                  fontFamily: fonts.body,
-                  fontWeight: 500,
+                  fontFamily: fonts.display,
+                  fontWeight: 300,
                   cursor: "pointer",
                   transition: "all 0.3s ease",
                   width: 200,
                   textAlign: "center",
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = `${colors.foreground}0D`;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "transparent";
-                }}
+                onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = `${colors.foreground}0D`; }}
+                onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; }}
                 onClick={() => setShowDemoModal(true)}
               >
                 Watch the demo
               </button>
+            </div>
+          </div>
+
+          {/* Video — sticky, scales with scroll */}
+          <div
+            className="hero-video-wrapper"
+            style={{
+              position: "sticky",
+              top: "15%",
+              zIndex: 5,
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              padding: "0 24px",
+              marginTop: 20,
+            }}
+          >
+            <div
+              className="hero-video-frame"
+              style={{
+                width: `${40 + videoScale * 55}%`,
+                maxWidth: 1100,
+                aspectRatio: "16 / 9",
+                borderRadius: `${15 - videoScale * 4}px`,
+                overflow: "hidden",
+                boxShadow: `0 ${8 + videoScale * 12}px ${40 + videoScale * 30}px rgba(0,0,0,${0.08 + videoScale * 0.1})`,
+                backgroundColor: "#1C1A1F",
+              }}
+            >
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              >
+                <source src="/makemeasuredemo.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
         </section>
@@ -1009,19 +973,27 @@ export default function Landing() {
               alignItems: "center",
             }}
           >
-            <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", maxWidth: 1200, margin: "0 auto", padding: "100px 24px 60px", width: "100%" }}>
+            <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", maxWidth: 1200, margin: "0 auto", padding: "150px 24px 60px", width: "100%" }}>
               <FadeIn>
-                <div
-                  style={{
+                <div style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "6px 14px",
+                  borderRadius: 9999,
+                  backgroundColor: "#F7FF9E",
+                  marginBottom: 30,
+                  marginTop: 20,
+                }}>
+                  <img src="/MMIconLoopBlack.gif" alt="" style={{ width: 18, height: 12 }} />
+                  <span style={{
                     fontFamily: FONT_MONO,
-                    fontSize: 11,
+                    fontSize: 12,
                     textTransform: "uppercase",
                     letterSpacing: "0.12em",
-                    color: "rgba(28,26,31,0.35)",
-                    marginBottom: 16,
-                  }}
-                >
-                  WE ALL FEEL THIS
+                    color: "#1C1A1F",
+                    fontWeight: 500,
+                  }}>WE ALL FEEL THIS</span>
                 </div>
               </FadeIn>
 
@@ -1033,6 +1005,7 @@ export default function Landing() {
                     color: "#1C1A1F",
                     lineHeight: 1.0,
                     textAlign: "center",
+                    marginBottom: 10,
                   }}
                 >
                   Making things has gotten easier.<br />
@@ -1060,18 +1033,26 @@ export default function Landing() {
             scrollSnapStop: "always",
           }}
         >
-            <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", maxWidth: 1100, margin: "0 auto", padding: "100px 24px 0", width: "100%" }}>
+            <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", maxWidth: 1100, margin: "0 auto", padding: "150px 24px 0", width: "100%" }}>
               <FadeIn>
-                <div
-                  style={{
+                <div style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "6px 14px",
+                  borderRadius: 9999,
+                  backgroundColor: "rgba(247,255,158,0.15)",
+                  marginBottom: 16,
+                }}>
+                  <img src="/MMIconLoopBlack.gif" alt="" style={{ width: 18, height: 12, filter: "invert(1)" }} />
+                  <span style={{
                     fontFamily: FONT_MONO,
-                    fontSize: 11,
+                    fontSize: 12,
                     textTransform: "uppercase",
                     letterSpacing: "0.12em",
-                    color: "rgba(255,255,255,0.4)",
-                  }}
-                >
-                  THE LOOP
+                    color: "#FFFEFB",
+                    fontWeight: 500,
+                  }}>THE LOOP</span>
                 </div>
               </FadeIn>
 
@@ -1086,16 +1067,17 @@ export default function Landing() {
                     marginTop: 12,
                   }}
                 >
-                  What if strategy, creative direction, project management, performance analytics and collaboration happened in one space?
+                  Creative work is never finished. Turn every campaign into the brief for the next one.
                 </div>
               </FadeIn>
 
               <FadeIn delay={300}>
                   <svg
-                    width="420"
-                    height="420"
+                    className="loop-graphic"
+                    width="600"
+                    height="600"
                     viewBox="-50 -30 460 440"
-                    style={{ marginTop: 16, display: "block" }}
+                    style={{ marginTop: 8, display: "block", maxWidth: "100%", height: "auto" }}
                   >
                     <defs>
                       <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
@@ -1112,7 +1094,7 @@ export default function Landing() {
                     <circle cx="180" cy="180" r="130" stroke="rgba(255,255,255,0.1)" strokeWidth="1" fill="none" />
 
                     {/* Center label */}
-                    <text x="180" y="183" fontFamily={FONT_MONO} fontSize="9" letterSpacing="0.2em" textAnchor="middle" fill="rgba(255,255,255,0.15)">THE LOOP</text>
+                    <text x="180" y="183" fontFamily={FONT_MONO} fontSize="12" letterSpacing="0.2em" textAnchor="middle" fill="rgba(255,255,255,0.15)">MAKE MEASURE</text>
 
                     {/* In-between small dots on circle */}
                     <circle cx="264" cy="80" r="2" fill="rgba(255,255,255,0.15)" />
@@ -1125,15 +1107,15 @@ export default function Landing() {
                     {/* In-between phase labels */}
                     <text x="275" y="70" fontFamily={FONT_MONO} fontSize="8" letterSpacing="0.15em" textAnchor="start" fill="rgba(255,255,255,0.25)">STRATEGY</text>
                     <text x="326" y="158" fontFamily={FONT_MONO} fontSize="8" letterSpacing="0.15em" textAnchor="start" fill="rgba(255,255,255,0.25)">CREATE</text>
-                    <text x="235" y="319" fontFamily={FONT_MONO} fontSize="8" letterSpacing="0.15em" textAnchor="start" fill="rgba(255,255,255,0.25)">DISTRIBUTE</text>
+                    <text x="235" y="319" fontFamily={FONT_MONO} fontSize="8" letterSpacing="0.15em" textAnchor="start" fill="rgba(255,255,255,0.25)">MANAGE</text>
                     <text x="125" y="319" fontFamily={FONT_MONO} fontSize="8" letterSpacing="0.15em" textAnchor="end" fill="rgba(255,255,255,0.25)">PUBLISH</text>
                     <text x="41" y="158" fontFamily={FONT_MONO} fontSize="8" letterSpacing="0.15em" textAnchor="end" fill="rgba(255,255,255,0.25)">ANALYZE</text>
                     <text x="85" y="70" fontFamily={FONT_MONO} fontSize="8" letterSpacing="0.15em" textAnchor="end" fill="rgba(255,255,255,0.25)">ITERATE</text>
 
                     {/* Main labels (offset from dots) */}
-                    <text x="180" y="26" fontFamily={FONT_MONO} fontSize="13" fontWeight="500" letterSpacing="0.15em" textAnchor="middle" fill="rgba(255,255,255,0.7)">MAKE</text>
-                    <text x="317" y="249" fontFamily={FONT_MONO} fontSize="13" fontWeight="500" letterSpacing="0.15em" textAnchor="start" fill="rgba(255,255,255,0.7)">SHIP</text>
-                    <text x="43" y="249" fontFamily={FONT_MONO} fontSize="13" fontWeight="500" letterSpacing="0.15em" textAnchor="end" fill="rgba(255,255,255,0.7)">MEASURE</text>
+                    <text x="180" y="26" fontFamily={FONT_MONO} fontSize="16" fontWeight="500" letterSpacing="0.15em" textAnchor="middle" fill="rgba(255,255,255,0.7)">MAKE</text>
+                    <text x="317" y="249" fontFamily={FONT_MONO} fontSize="16" fontWeight="500" letterSpacing="0.15em" textAnchor="start" fill="rgba(255,255,255,0.7)">SHIP</text>
+                    <text x="43" y="249" fontFamily={FONT_MONO} fontSize="16" fontWeight="500" letterSpacing="0.15em" textAnchor="end" fill="rgba(255,255,255,0.7)">MEASURE</text>
 
                     {/* Static dots at main label positions */}
                     <circle cx="180" cy="50" r="4" fill="#F7FF9E" />
@@ -1167,27 +1149,13 @@ export default function Landing() {
                   </svg>
               </FadeIn>
 
-              <FadeIn delay={450}>
-                <div
-                  style={{
-                    fontFamily: FONT_BODY,
-                    fontSize: 16,
-                    color: "rgba(255,255,255,0.5)",
-                    marginTop: 0,
-                    maxWidth: 600,
-                    textAlign: "center",
-                  }}
-                >
-                  In one click, performance data shapes the next idea. Data already loaded. Curator already thinking.
-                </div>
-              </FadeIn>
             </div>
         </section>
 
-        {/* ═══════════════════════ SECTION 4: THE PARTNER ═══════════════════════ */}
+        {/* ═══════════════════════ SECTION 4: THE PHILOSOPHY ═══════════════════════ */}
         <section
           ref={section4Ref}
-          id="curator"
+          id="taste"
           style={{
             position: "relative",
             zIndex: 1,
@@ -1201,17 +1169,24 @@ export default function Landing() {
         >
             <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", maxWidth: 1100, margin: "0 auto", padding: "100px 24px 60px", width: "100%" }}>
               <FadeIn>
-                <div
-                  style={{
+                <div style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "6px 14px",
+                  borderRadius: 9999,
+                  backgroundColor: "rgba(247,255,158,0.15)",
+                  marginBottom: 30,
+                }}>
+                  <img src="/MMIconLoopBlack.gif" alt="" style={{ width: 18, height: 12, filter: "invert(1)" }} />
+                  <span style={{
                     fontFamily: FONT_MONO,
-                    fontSize: 11,
+                    fontSize: 12,
                     textTransform: "uppercase",
                     letterSpacing: "0.12em",
-                    color: "rgba(255,255,255,0.4)",
-                    marginBottom: 16,
-                  }}
-                >
-                  THE CURATOR
+                    color: "#FFFEFB",
+                    fontWeight: 500,
+                  }}>ON TASTE</span>
                 </div>
               </FadeIn>
 
@@ -1219,39 +1194,62 @@ export default function Landing() {
                 <div
                   style={{
                     fontFamily: FONT_DISPLAY,
-                    fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
+                    fontSize: "clamp(1.5rem, 4.5vw, 3rem)",
                     color: "#FFFEFB",
                     lineHeight: 1.0,
-                    maxWidth: 900,
+                    maxWidth: 1000,
                   }}
                 >
-                  A strategic partner helping the entire team set creative direction, know the brief, and the performance.
+                  Most AI does the work for you.
+                </div>
+                <div
+                  style={{
+                    fontFamily: FONT_DISPLAY,
+                    fontSize: "clamp(1.5rem, 4.5vw, 3rem)",
+                    color: "#FFFEFB",
+                    lineHeight: 1.0,
+                    maxWidth: 1000,
+                    marginTop: 16,
+                  }}
+                >
+                  This AI does the work <span style={{ textDecoration: "underline", textDecorationThickness: "3px", textUnderlineOffset: "6px", textDecorationColor: "rgba(255,255,255,0.3)" }}>with you.</span>
                 </div>
               </FadeIn>
 
               <FadeIn delay={300}>
-                <div
+                <p
                   style={{
                     fontFamily: FONT_BODY,
-                    fontSize: 18,
-                    color: "rgba(255,255,255,0.6)",
-                    marginTop: 64,
-                    lineHeight: 2.2,
+                    fontSize: 16,
+                    color: "rgba(255,255,255,0.8)",
+                    lineHeight: 1.6,
+                    maxWidth: 640,
+                    marginTop: 48,
                   }}
                 >
-                  What's the campaign strategy? Just ask.<br />
-                  What should the visual language be? Just ask.<br />
-                  What was the thumb stop on our last Reel? Just ask.
-                </div>
+                  Creative work runs on taste, judgment, cultural intuition. On making someone feel something. As AI content floods every feed, work that feels truly creative becomes the rarest thing. 
+                  </p>
+                  <p
+                  style={{
+                    fontFamily: FONT_BODY,
+                    fontSize: 16,
+                    color: "rgba(255,255,255,0.8)",
+                    lineHeight: 1.6,
+                    maxWidth: 640,
+                    marginTop: 24,
+                  }}
+                >
+                  The market is rewarding taste now more than ever. <br/>Make Measure is built to sharpen teams who have it.
+                </p>
               </FadeIn>
             </div>
         </section>
 
-        {/* ═══════════════════════ SECTION 5: THE PHILOSOPHY ═══════════════════════ */}
-        <section style={{ position: "relative", backgroundColor: "#F8F8F6", zIndex: 1, minHeight: "100vh", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", scrollSnapAlign: "start", scrollSnapStop: "always" }}>
+        {/* ═══════════════════════ SECTION 5: THE PARTNER  ═══════════════════════ */}
+        <section id="curator" style={{ position: "relative", backgroundColor: "#F8F8F6", zIndex: 1, minHeight: "100vh", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", scrollSnapAlign: "start", scrollSnapStop: "always" }}>
           <DotGrid id="dotGrid5" />
 
-          {/* Floating placeholder images */}
+          {/* Floating placeholder images — disabled
           <div className="floating-images" style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none" }}>
             {[
               { top: "2%", left: "5%", w: 83, h: 83, dur: 9, delay: -5, src: "/HeroImages/Image15.png" },
@@ -1286,54 +1284,68 @@ export default function Landing() {
               </div>
             ))}
           </div>
+          */}
 
           {/* Centered content */}
           <div style={{ position: "relative", zIndex: 1, textAlign: "center", maxWidth: 900, padding: "0 24px" }}>
             <FadeIn>
-              <div
-                style={{
-                  fontFamily: FONT_DISPLAY,
-                  fontSize: "clamp(1.5rem, 4.5vw, 3rem)",
+              <div style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "6px 14px",
+                borderRadius: 9999,
+                backgroundColor: "#F7FF9E",
+                marginBottom: 30,
+              }}>
+                <img src="/MMIconLoopBlack.gif" alt="" style={{ width: 18, height: 12 }} />
+                <span style={{
+                  fontFamily: FONT_MONO,
+                  fontSize: 12,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.12em",
                   color: "#1C1A1F",
-                  lineHeight: 1.0,
-                  maxWidth: 1000,
-                  margin: "0 auto",
-                }}
-              >
-                Most AI tools are designed to do the work for you.
-              </div>
-              <div
-                style={{
-                  fontFamily: FONT_DISPLAY,
-                  fontSize: "clamp(1.5rem, 4.5vw, 3rem)",
-                  color: "#1C1A1F",
-                  lineHeight: 1.0,
-                  maxWidth: 1000,
-                  margin: "16px auto 0",
-                }}
-              >
-                Make Measure is designed to do the work <span style={{ textDecoration: "underline", textDecorationThickness: "3px", textUnderlineOffset: "6px", textDecorationColor: "rgba(28,26,31,0.3)" }}>with you.</span>
+                  fontWeight: 500,
+                }}>THE CURATOR</span>
               </div>
             </FadeIn>
 
             <FadeIn delay={150}>
-              <p
+              <div
                 style={{
-                  fontFamily: FONT_BODY,
-                  fontSize: 16,
-                  color: "#6B6B6B",
-                  lineHeight: 1.8,
-                  maxWidth: 640,
-                  margin: "48px auto 0",
+                  fontFamily: FONT_DISPLAY,
+                  fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
+                  color: "#1C1A1F",
+                  lineHeight: 1.0,
+                  maxWidth: 900,
+                  margin: "0 auto",
                 }}
               >
-                Creative work runs on taste, judgment, cultural intuition. On making someone feel something. As AI content floods every feed, work that feels truly creative becomes the rarest thing. The market is about to reward taste more than it ever has. Make Measure is built for the teams who have it.
-              </p>
+                A strategic partner for the whole team. It knows the brief. It knows the work. It knows the performance.
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={300}>
+              <div
+                style={{
+                  fontFamily: FONT_BODY,
+                  fontSize: 18,
+                  color: "rgba(28,26,31,0.6)",
+                  marginTop: 64,
+                  lineHeight: 2.2,
+                }}
+              >
+                What's the campaign strategy? Just ask.<br />
+                What should the visual language be? Just ask.<br />
+                What was the thumb stop on our last Reel? Just ask.
+              </div>
             </FadeIn>
           </div>
         </section>
 
-        {/* ═══════════════════════ SECTION 7a: MAKE ═══════════════════════ */}
+        {/* ═══════════════════════ SECTION 6: FEATURES ═══════════════════════ */}
+
+        {/* ═══════════════════════ SECTION 6a: MAKE ═══════════════════════ */}
         <section
           id="features"
           style={{
@@ -1349,6 +1361,7 @@ export default function Landing() {
         >
           <DotGrid id="dotGrid7a" />
           <div
+            className="mode-section"
             style={{
               position: "relative",
               zIndex: 1,
@@ -1358,70 +1371,100 @@ export default function Landing() {
               width: "100%",
             }}
           >
+            {/* INTRO TEXT - removing for now... 
             <FadeIn>
-              <div>
-                <div
-                  style={{
+              <div
+                style={{
+                  fontFamily: FONT_DISPLAY,
+                  fontSize: "clamp(1.5rem, 4vw, 1.5rem)",
+                  color: "#1C1A1F",
+                  lineHeight: 1.0,
+                  textAlign: "left",
+                  marginBottom: 50,
+                }}
+              >
+                Three modes. Each one feeds the next.
+              </div>
+            </FadeIn>
+            */}
+            <FadeIn>
+              <div
+                style={{
+                  width: "90%",
+                  margin: "0 auto",
+                }}
+              >
+                <div style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "6px 14px",
+                  borderRadius: 9999,
+                  backgroundColor: "#F7FF9E",
+                  marginTop: 80,
+                  marginBottom: 10,
+                }}>
+                  <img src="/MMIconLoopBlack.gif" alt="" style={{ width: 18, height: 12 }} />
+                  <span style={{
                     fontFamily: FONT_MONO,
-                    fontSize: 11,
+                    fontSize: 12,
                     textTransform: "uppercase",
                     letterSpacing: "0.12em",
-                    color: "rgba(28,26,31,0.4)",
-                  }}
-                >
-                  MAKE MODE
+                    color: "#1C1A1F",
+                    fontWeight: 500,
+                  }}>MAKE MODE</span>
                 </div>
                 <h3
                   style={{
                     fontFamily: FONT_DISPLAY,
-                    fontSize: 28,
+                    fontSize: 24,
                     color: "#1C1A1F",
                     margin: "12px 0 0 0",
                     lineHeight: 1.2,
                   }}
                 >
-                  Strategy, creative direction, and concept generation.
+                  Strategy and creative direction
                 </h3>
                 <p
                   style={{
                     fontFamily: FONT_BODY,
-                    fontSize: 16,
+                    fontSize: 14,
                     color: "#6B6B6B",
-                    marginTop: 12,
+                    marginTop: 10,
                     maxWidth: 680,
-                    lineHeight: 1.6,
+                    lineHeight: 1.4,
                   }}
                 >
-                  Build the brief. Explore concepts. Generate visuals. Build moodboards, add inspiration from ad libraries or your Pinterest. Everything in one multiplayer canvas.
+                  Build the brief, creative tests, and mood boards. Pull inspiration from Pinterest, research ad libraries, save content from social channels, or generate visuals. The canvas is where the project starts, and where the team stays aligned.
                 </p>
                 <div
+                  className="mode-video"
                   style={{
                     width: "100%",
-                    height: 400,
-                    background: "#F1F0EC",
-                    borderRadius: 16,
+                    aspectRatio: "16 / 9",
+                    borderRadius: 20,
+                    overflow: "hidden",
                     marginTop: 24,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    backgroundColor: "#1C1A1F",
+                    boxShadow: "0 8px 40px rgba(0,0,0,0.08)",
                   }}
                 >
-                  <span
-                    style={{
-                      fontFamily: FONT_MONO,
-                      fontSize: 11,
-                      color: "rgba(28,26,31,0.2)",
-                    }}
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   >
-                    [Make mode]
-                  </span>
+                    <source src="/MM_MakeMode.mp4" type="video/mp4" />
+                  </video>
                 </div>
               </div>
             </FadeIn>
           </div>
         </section>
 
-        {/* ═══════════════════════ SECTION 7b: SHIP ═══════════════════════ */}
+        {/* ═══════════════════════ SECTION 6b: SHIP ═══════════════════════ */}
         <section
           style={{
             position: "relative",
@@ -1436,6 +1479,7 @@ export default function Landing() {
         >
           <DotGrid id="dotGrid7b" />
           <div
+            className="mode-section"
             style={{
               position: "relative",
               zIndex: 1,
@@ -1446,69 +1490,83 @@ export default function Landing() {
             }}
           >
             <FadeIn>
-              <div>
-                <div
-                  style={{
+              <div
+                style={{
+                  width: "90%",
+                  margin: "0 auto",
+                }}
+              >
+                <div style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "6px 14px",
+                  borderRadius: 9999,
+                  backgroundColor: "#F7FF9E",
+                  marginTop: 80,
+                  marginBottom: 10,
+                }}>
+                  <img src="/MMIconLoopBlack.gif" alt="" style={{ width: 18, height: 12 }} />
+                  <span style={{
                     fontFamily: FONT_MONO,
-                    fontSize: 11,
+                    fontSize: 12,
                     textTransform: "uppercase",
                     letterSpacing: "0.12em",
-                    color: "rgba(28,26,31,0.4)",
-                  }}
-                >
-                  SHIP MODE
+                    color: "#1C1A1F",
+                    fontWeight: 500,
+                  }}>SHIP MODE</span>
                 </div>
                 <h3
                   style={{
                     fontFamily: FONT_DISPLAY,
-                    fontSize: 28,
+                    fontSize: 24,
                     color: "#1C1A1F",
                     margin: "12px 0 0 0",
                     lineHeight: 1.2,
                   }}
                 >
-                  Review, approve, publish.
+                  Manage, review, publish
                 </h3>
                 <p
                   style={{
                     fontFamily: FONT_BODY,
-                    fontSize: 16,
+                    fontSize: 14,
                     color: "#6B6B6B",
-                    marginTop: 12,
+                    marginTop: 10,
                     maxWidth: 680,
-                    lineHeight: 1.6,
+                    lineHeight: 1.4,
                   }}
                 >
-                  Projects move from the canvas into project management. Review assets, and when approved, publish directly to Instagram, YouTube, TikTok, and Meta.
+                  Keep track of every project, every asset, every decision. Share with the team or clients for feedback, revision requests, and approvals. Publish and schedule directly to Instagram, YouTube, TikTok, Google, and Meta.
                 </p>
                 <div
+                  className="mode-video"
                   style={{
                     width: "100%",
-                    height: 400,
-                    background: "#F1F0EC",
-                    borderRadius: 16,
+                    aspectRatio: "16 / 9",
+                    borderRadius: 20,
+                    overflow: "hidden",
                     marginTop: 24,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    backgroundColor: "#1C1A1F",
+                    boxShadow: "0 8px 40px rgba(0,0,0,0.08)",
                   }}
                 >
-                  <span
-                    style={{
-                      fontFamily: FONT_MONO,
-                      fontSize: 11,
-                      color: "rgba(28,26,31,0.2)",
-                    }}
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   >
-                    [Ship mode]
-                  </span>
+                    <source src="/MM_ShipMode.mp4" type="video/mp4" />
+                  </video>
                 </div>
               </div>
             </FadeIn>
           </div>
         </section>
 
-        {/* ═══════════════════════ SECTION 7c: MEASURE ═══════════════════════ */}
+        {/* ═══════════════════════ SECTION 6c: MEASURE ═══════════════════════ */}
         <section
           style={{
             position: "relative",
@@ -1523,6 +1581,7 @@ export default function Landing() {
         >
           <DotGrid id="dotGrid7c" />
           <div
+            className="mode-section"
             style={{
               position: "relative",
               zIndex: 1,
@@ -1533,69 +1592,83 @@ export default function Landing() {
             }}
           >
             <FadeIn>
-              <div>
-                <div
-                  style={{
+              <div
+                style={{
+                  width: "90%",
+                  margin: "0 auto",
+                }}
+              >
+                <div style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "6px 14px",
+                  borderRadius: 9999,
+                  backgroundColor: "#F7FF9E",
+                  marginTop: 80,
+                  marginBottom: 10,
+                }}>
+                  <img src="/MMIconLoopBlack.gif" alt="" style={{ width: 18, height: 12 }} />
+                  <span style={{
                     fontFamily: FONT_MONO,
-                    fontSize: 11,
+                    fontSize: 12,
                     textTransform: "uppercase",
                     letterSpacing: "0.12em",
-                    color: "rgba(28,26,31,0.4)",
-                  }}
-                >
-                  MEASURE MODE
+                    color: "#1C1A1F",
+                    fontWeight: 500,
+                  }}>MEASURE MODE</span>
                 </div>
                 <h3
                   style={{
                     fontFamily: FONT_DISPLAY,
-                    fontSize: 28,
+                    fontSize: 24,
                     color: "#1C1A1F",
                     margin: "12px 0 0 0",
                     lineHeight: 1.2,
                   }}
                 >
-                  Paid + organic performance.
+                  Each learning becomes the next brief
                 </h3>
                 <p
                   style={{
                     fontFamily: FONT_BODY,
-                    fontSize: 16,
+                    fontSize: 14,
                     color: "#6B6B6B",
-                    marginTop: 12,
+                    marginTop: 10,
                     maxWidth: 680,
-                    lineHeight: 1.6,
+                    lineHeight: 1.4,
                   }}
                 >
-                  Meta Ads, Google Ads, Instagram, YouTube, TikTok. Set your goals. When something needs to change, start a strategy session for the next iteration in one click.
+                  Paid and organic performance together. Meta Ads, Google Ads, Pinterest Ads, Instagram, YouTube, TikTok. When something underperforms, one click starts the next strategy session with the data already loaded.
                 </p>
                 <div
+                  className="mode-video"
                   style={{
                     width: "100%",
-                    height: 400,
-                    background: "#F1F0EC",
-                    borderRadius: 16,
+                    aspectRatio: "16 / 9",
+                    borderRadius: 20,
+                    overflow: "hidden",
                     marginTop: 24,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    backgroundColor: "#1C1A1F",
+                    boxShadow: "0 8px 40px rgba(0,0,0,0.08)",
                   }}
                 >
-                  <span
-                    style={{
-                      fontFamily: FONT_MONO,
-                      fontSize: 11,
-                      color: "rgba(28,26,31,0.2)",
-                    }}
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   >
-                    [Measure mode]
-                  </span>
+                    <source src="/MM_MeasureMode.mp4" type="video/mp4" />
+                  </video>
                 </div>
               </div>
             </FadeIn>
           </div>
         </section>
 
-        {/* ═══════════════════════ SECTION 8: THE PROOF + CTA ═══════════════════════ */}
+        {/* ═══════════════════════ SECTION 7: THE PROOF + CTA ═══════════════════════ */}
         <section
           ref={section8Ref}
           id="pricing"
@@ -1603,7 +1676,7 @@ export default function Landing() {
             position: "relative",
             backgroundColor: "transparent",
             zIndex: 1,
-            padding: "120px 24px",
+            padding: "160px 24px",
             scrollSnapAlign: "start",
             scrollSnapStop: "always",
           }}
@@ -1615,6 +1688,19 @@ export default function Landing() {
               textAlign: "center",
             }}
           >
+            <FadeIn>
+              <div style={{
+                fontFamily: FONT_MONO,
+                fontSize: 10,
+                textTransform: "uppercase",
+                letterSpacing: "0.15em",
+                color: "rgba(255,255,255,0.3)",
+                marginBottom: 20,
+              }}>
+                Official API integrations with
+              </div>
+            </FadeIn>
+
             {/* Platform logos */}
             <FadeIn>
               <div
@@ -1641,14 +1727,14 @@ export default function Landing() {
                     src={icon.url}
                     alt={icon.name}
                     style={{ height: 24, opacity: 0.4, transition: "opacity 0.3s ease" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
-                    onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.4")}
+                    onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
+                    onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.7")}
                   />
                 ))}
               </div>
             </FadeIn>
 
-            {/* Closing line */}
+            {/* Closing line 
             <FadeIn delay={150}>
               <div
                 style={{
@@ -1660,42 +1746,51 @@ export default function Landing() {
               >
                 Make the work. Measure the impact.
               </div>
-            </FadeIn>
+            </FadeIn>*/}
 
-            {/* Pricing */}
+            {/* ═══════════════════════ Pricing ═══════════════════════ */}
             <FadeIn delay={300}>
-              <div className="pricing-columns" style={{ display: "flex", justifyContent: "center", gap: 80, marginTop: 64, maxWidth: 900, width: "100%", alignItems: "flex-start" }}>
-                {/* Left: Price */}
+              <div className="pricing-columns" style={{ display: "flex", justifyContent: "center", gap: 80, marginTop: 100, maxWidth: 900, width: "100%", alignItems: "flex-start" }}>
+                {/* ═══════════════════════ Left: Price ═══════════════════════ */}
+                
+               
+
                 <div style={{ textAlign: "left", flex: "0 0 auto" }}>
-                  <div style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: "#FFFEFB", lineHeight: 1.0 }}>
-                    $29/seat/month.
+
+                <div style={{ fontFamily: FONT_BODY, fontSize: 12, color: "rgba(255,255,255,0.8)", marginTop: 12 }}>
+                   FOUNDER SERIES PRICING
+                  </div> 
+                  <div style={{ fontFamily: FONT_DISPLAY, fontSize: 32, color: "#FFFEFB", lineHeight: 1.0, marginTop: 12 }}>
+                    $29/seat/month
                   </div>
-                  <div style={{ fontFamily: FONT_BODY, fontSize: 16, color: "rgba(255,255,255,0.5)", marginTop: 12 }}>
-                    7-day free trial.
+                  <div style={{ fontFamily: FONT_BODY, fontSize: 14, color: "rgba(255,255,255,0.4)", marginTop: 12 }}>
+                  $49/month after year one
                   </div>
-                  <div style={{ fontFamily: FONT_BODY, fontSize: 14, color: "rgba(255,255,255,0.3)", marginTop: 4 }}>
-                    With all features.
+                 
+                  <div style={{ fontFamily: FONT_BODY, fontSize: 14, color: "rgba(255,255,255,0.8)", marginTop: 12 }}>
+                    7-day free trial, with all features. <br/> Cancel anytime.
                   </div>
                 </div>
 
                 {/* Right: Feature list */}
-                <div style={{ textAlign: "left" }}>
+                <div className="pricing-features" style={{ textAlign: "left" }}>
                   {[
                     "Strategy brief builder with AI-generated artifacts",
-                    "Infinite creative canvas",
-                    "AI Curator across all modes",
-                    "Creative Pipeline (AI image generation)",
-                    "Kanban project management",
-                    "Publishing to all major social platforms",
-                    "Performance dashboard (paid + organic)",
-                    "Multi-platform campaign sync",
-                    "Workspace collaboration",
-                    "100 AI generation credits/month",
+                    "Infinite creative canvas with AI image generation",
+                    "AI Curator across every mode",
+                    "Pinterest drag-and-drop for visual inspiration",
+                    "Competitor ad research across Meta, TikTok, and Google",
+                    "Project management with kanban and calendar views",
+                    "Internal and external review and approvals",
+                    "Publishing to Instagram, YouTube, TikTok, Google, and Meta",
+                    "Performance dashboard for paid and organic",
+                    "Workspace collaboration for your whole team",
+                    "100 AI generation credits per month",
                   ].map((feature, i) => (
                     <div key={i} style={{
                       fontFamily: FONT_MONO,
                       fontSize: 12,
-                      color: "rgba(255,255,255,0.5)",
+                      color: "rgba(255,255,255,0.9)",
                       lineHeight: 2.2,
                       letterSpacing: "0.02em",
                     }}>
@@ -1706,7 +1801,7 @@ export default function Landing() {
               </div>
             </FadeIn>
 
-            {/* CTA */}
+            {/* ═══════════════════════ CTA ═══════════════════════ */}
             <FadeIn delay={450}>
               <a
                 className="cta-big"
@@ -1741,7 +1836,7 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ═══════════════════════ SECTION 9: ABOUT ═══════════════════════ */}
+        {/* ═══════════════════════ SECTION 8: ABOUT ═══════════════════════ */}
         <section
           ref={section9Ref}
           id="about"
@@ -1762,7 +1857,7 @@ export default function Landing() {
               padding: "160px 24px 120px",
             }}
           >
-            {/* Divider */}
+            {/* ═══════════════════════ Divider ═══════════════════════ 
             <div
               style={{
                 width: 40,
@@ -1771,9 +1866,9 @@ export default function Landing() {
                 margin: "0 auto",
                 marginBottom: 60,
               }}
-            />
+            />*/}
 
-            {/* Two-column layout */}
+            {/* ═══════════════════════ Two-column layout ═══════════════════════ */}
             <div
               style={{
                 display: "flex",
@@ -1782,7 +1877,7 @@ export default function Landing() {
               }}
               className="about-columns"
             >
-              {/* Left column */}
+              {/* ═══════════════════════ Left column ═══════════════════════ */}
               <div style={{ width: 320, flexShrink: 0 }} className="about-left">
                 <img
                   src="/BrentEthanFreedmanHeadshot4.png"
@@ -1856,45 +1951,45 @@ export default function Landing() {
                 </div>
               </div>
 
-              {/* Right column */}
+              {/* ═══════════════════════ Right column ═══════════════════════ */}
               <div style={{ flex: 1 }}>
                 <p
                   style={{
                     fontFamily: FONT_BODY,
                     fontSize: 16,
-                    color: "rgba(255,255,255,0.6)",
+                    color: "rgba(255,255,255,0.8)",
                     lineHeight: 1.8,
                     margin: 0,
                   }}
                 >
-                  After spending over a decade leading brand and creative teams, I kept running into the same problem. Teams don't lack the strategy, collaboration, or creativity to operate more efficiently. The tools we use to manage our projects simply aren't designed for it.
+                  After a decade leading brand and creative teams, I kept running into the same problem. Teams don't lack strategy, creativity, or ambition. The tools we use to manage our work aren't built for the way creative teams actually think.
                 </p>
                 <p
                   style={{
                     fontFamily: FONT_BODY,
                     fontSize: 16,
-                    color: "rgba(255,255,255,0.6)",
+                    color: "rgba(255,255,255,0.8)",
                     lineHeight: 1.8,
                     marginTop: 24,
                   }}
                 >
-                  Make Measure is the creative strategy and operations tool I always wanted. I built it because I've seen firsthand what's possible when teams are more aligned, more strategic and more embedded in performance. They work faster, more inspired and they get better results.
-                </p>
+Make Measure is the tool I always wanted. I built it after years of seeing strategy docs ignored, performance separated from creative, and everything in between happening on a call or in someone's head. I wanted this work to live together in one space, so the work and the thinking stay connected.                </p>
                 <p
                   style={{
                     fontFamily: FONT_BODY,
                     fontSize: 16,
-                    color: "rgba(255,255,255,0.6)",
+                    color: "rgba(255,255,255,0.8)",
                     lineHeight: 1.8,
                     marginTop: 24,
                   }}
                 >
-                  I'm based in Vancouver, Canada, and write about creative work on <a href="https://substack.com/@brinestudios" target="_blank" rel="noopener noreferrer" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "underline" }}>Substack</a>. Please reach out if you want to learn more about Make Measure, have feature ideas, or looking to collaborate. I'd love to connect.
+                  I'm based in Vancouver, where I run <a href="https://brinestudios.com" target="_blank" rel="noopener noreferrer" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "underline" }}>Brine Studios</a> and write about creative work on <a href="https://substack.com/@brinestudios" target="_blank" rel="noopener noreferrer" style={{ color: "rgba(255,255,255,0.6)", textDecoration: "underline" }}>Substack</a>. If you have any questions, have thoughts on the product, or want to try it, I'd love to hear from you.
+
                 </p>
               </div>
             </div>
 
-            {/* Footer */}
+            {/* ═══════════════════════ Footer ═══════════════════════ */}
             <div className="footer-row" style={{ marginTop: 80, display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%" }}>
               <div>
                 <img src="/MakeMeasureLogotypeWhite.png" alt="Make Measure" style={{ height: 18, opacity: 1 }} />
@@ -1992,27 +2087,24 @@ export default function Landing() {
               >
                 ×
               </button>
-              <div
+              <video
+                autoPlay
+                loop
+                controls
+                controlsList="nodownload noplaybackrate"
+                disablePictureInPicture
+                playsInline
                 style={{
                   width: "100%",
                   height: "100%",
+                  objectFit: "cover",
+                  display: "block",
                   backgroundColor: "#1C1A1F",
                   borderRadius: 16,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
                 }}
               >
-                <span
-                  style={{
-                    fontFamily: FONT_MONO,
-                    fontSize: 12,
-                    color: "rgba(255,255,255,0.3)",
-                  }}
-                >
-                  Demo video coming soon
-                </span>
-              </div>
+                <source src="/makemeasuredemo.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
         )}
@@ -2022,28 +2114,72 @@ export default function Landing() {
       <style>
         {`
           @media (max-width: 768px) {
-            .hero-top-zone {
-              padding: 48px 24px 0 !important;
+            .hero-section {
+              height: auto !important;
+              min-height: 100vh !important;
             }
-            .hero-video-zone {
-              padding: 12px 24px !important;
+            .hero-text-block {
+              padding: 60px 20px 32px !important;
             }
-            .hero-bottom {
-              padding: 12px 24px 24px !important;
-              flex-direction: column !important;
-              align-items: flex-start !important;
-              gap: 16px !important;
+            .hero-text-block h1 {
+              font-size: clamp(3.5rem, 14vw, 5rem) !important;
             }
-            .hero-bottom button,
-            .hero-bottom a {
+            .hero-video-wrapper {
+              position: relative !important;
+              top: auto !important;
+              transform: none !important;
+              padding: 0 20px !important;
+            }
+            .hero-video-frame {
               width: 100% !important;
-              text-align: center !important;
-              justify-content: center !important;
+              max-width: 100% !important;
             }
             .hero-ctas {
               flex-direction: column !important;
               align-items: stretch !important;
               width: 100% !important;
+            }
+            .hero-ctas button,
+            .hero-ctas a {
+              width: 100% !important;
+              text-align: center !important;
+              justify-content: center !important;
+            }
+            .mode-section {
+              padding: 0 16px !important;
+            }
+            .mode-section h3 {
+              font-size: 28px !important;
+            }
+            .mode-section p {
+              font-size: 16px !important;
+              line-height: 1.6 !important;
+            }
+            .mode-video {
+              width: 100% !important;
+            }
+            .mode-section > div > div {
+              width: 100% !important;
+            }
+            .loop-graphic {
+              width: 90vw !important;
+              height: 90vw !important;
+              max-width: 500px !important;
+              max-height: 500px !important;
+            }
+            .about-columns p {
+              text-align: left !important;
+            }
+            .pricing-features,
+            .pricing-features > div {
+              text-align: left !important;
+            }
+            .footer-row {
+              justify-content: center !important;
+            }
+            .footer-row img {
+              margin: 0 auto !important;
+              display: block !important;
             }
           }
           @media (max-width: 768px) {
@@ -2082,7 +2218,7 @@ export default function Landing() {
             }
             .pricing-columns {
               flex-direction: column !important;
-              gap: 40px !important;
+              gap: 30px !important;
               align-items: center !important;
               text-align: center !important;
             }
@@ -2090,13 +2226,17 @@ export default function Landing() {
               text-align: center !important;
             }
             .platform-logos {
-              gap: 24px !important;
+              gap: 20px !important;
               flex-wrap: wrap !important;
               justify-content: center !important;
+              margin-bottom: 0px !important;
+            }
+            #pricing {
+              padding: 120px 0px !important;
             }
             .cta-big {
               padding: 20px 40px !important;
-              font-size: 20px !important;
+              font-size: 16px !important;
               width: 100% !important;
               max-width: 400px !important;
               text-align: center !important;
