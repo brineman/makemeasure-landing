@@ -1308,7 +1308,7 @@ export default function Landing() {
                   letterSpacing: "0.12em",
                   color: "#1C1A1F",
                   fontWeight: 500,
-                }}>THE CURATOR</span>
+                }}>MEET THE CURATOR</span>
               </div>
             </FadeIn>
 
