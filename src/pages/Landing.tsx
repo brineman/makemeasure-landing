@@ -456,13 +456,20 @@ export default function Landing() {
             0%, 100% { transform: translateY(0); opacity: 0.25; }
             50% { transform: translateY(6px); opacity: 0.4; }
           }
+
+          @supports not (height: 100dvh) {
+            .scroll-container {
+              height: 100vh !important;
+            }
+          }
         `}
       </style>
 
       <div
         ref={scrollContainerRef}
+        className="scroll-container"
         style={{
-          height: "100vh",
+          height: "100dvh",
           overflowY: "auto",
           scrollSnapType: "y mandatory",
           scrollBehavior: "smooth",
