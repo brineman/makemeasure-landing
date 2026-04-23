@@ -491,11 +491,9 @@ export default function Landing() {
         }}
       >
         {/* Fixed shader layer for Sections 3+4 */}
-        {shaderVisible && (
-          <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", backgroundColor: "#1C1A1F" }}>
-            <ShaderBackground colorBack="#1C1A1F" colors={["#F7FF9E", "#F7FF9E", "#F7FF9E"]} />
-          </div>
-        )}
+        <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", backgroundColor: "#1C1A1F" }}>
+          <ShaderBackground colorBack="#1C1A1F" colors={["#F7FF9E", "#F7FF9E", "#F7FF9E"]} />
+        </div>
 
         {/* ═══════════════════════ NAVIGATION ═══════════════════════ */}
         <header
@@ -1749,7 +1747,7 @@ export default function Landing() {
                   alignItems: "center",
                   justifyContent: "center",
                   gap: 40,
-                  marginBottom: 60,
+                  marginBottom: 50,
                   flexWrap: "wrap",
                 }}
               >
@@ -1789,7 +1787,7 @@ export default function Landing() {
 
             {/* ═══════════════════════ Pricing ═══════════════════════ */}
             <FadeIn delay={300}>
-              <div className="pricing-columns" style={{ display: "flex", justifyContent: "center", gap: 80, marginTop: 100, maxWidth: 900, width: "100%", alignItems: "flex-start" }}>
+              <div className="pricing-columns" style={{ display: "flex", justifyContent: "center", gap: 80, marginTop: 50, maxWidth: 1100, width: "100%", alignItems: "flex-start" }}>
                 {/* ═══════════════════════ Left: Price ═══════════════════════ */}
                 
                
