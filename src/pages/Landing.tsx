@@ -786,7 +786,7 @@ export default function Landing() {
           className="hero-section"
           style={{
             position: "relative",
-            height: "150vh",
+            height: "160vh",
             backgroundColor: "#F8F8F6",
             zIndex: 1,
             paddingTop: 80,
@@ -2033,7 +2033,7 @@ export default function Landing() {
                     marginTop: 24,
                   }}
                 >
-                  Make Measure is the tool I always wanted. I built it after years of seeing strategy docs ignored, performance separated from creative, and everything in between happening on a call or in someone's head. <br/>   I wanted this work to live together in one space, so the work and the thinking stay connected.                </p>
+                  Make Measure is the tool I always wanted. I built it after years of seeing strategy docs ignored, performance separated from creative, and everything in between happening on a call or in someone's head. I wanted this work to live together in one space, so the work and the thinking stay connected.                </p>
                 <p
                   style={{
                     fontFamily: FONT_BODY,
