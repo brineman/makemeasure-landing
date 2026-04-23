@@ -962,7 +962,7 @@ export default function Landing() {
                 playsInline
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               >
-                <source src="https://dozvuosviqxeutfastqn.supabase.co/storage/v1/object/public/marketing/makemeasuredemo.mp4" type="video/mp4" />
+                <source src="https://pub-1d97ce4db98043e5b06cf49e1b894e50.r2.dev/makemeasuredemo.mp4" type="video/mp4" />
               </video>
             </div>
           </div>
@@ -1352,7 +1352,7 @@ export default function Landing() {
                   playsInline
                   style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                 >
-                  <source src="https://dozvuosviqxeutfastqn.supabase.co/storage/v1/object/public/marketing/MMCurator.mp4" type="video/mp4" />
+                  <source src="https://pub-1d97ce4db98043e5b06cf49e1b894e50.r2.dev/MMCurator.mp4" type="video/mp4" />
                 </video>
               </div>
             </FadeIn>
@@ -1472,7 +1472,7 @@ export default function Landing() {
                     playsInline
                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   >
-                    <source src="https://dozvuosviqxeutfastqn.supabase.co/storage/v1/object/public/marketing/MakeMode.mp4" type="video/mp4" />
+                    <source src="https://pub-1d97ce4db98043e5b06cf49e1b894e50.r2.dev/MakeMode.mp4" type="video/mp4" />
                   </video>
                 </div>
               </div>
@@ -1574,7 +1574,7 @@ export default function Landing() {
                     playsInline
                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   >
-                    <source src="https://dozvuosviqxeutfastqn.supabase.co/storage/v1/object/public/marketing/ShipMode.mp4" type="video/mp4" />
+                    <source src="https://pub-1d97ce4db98043e5b06cf49e1b894e50.r2.dev/ShipMode.mp4" type="video/mp4" />
                   </video>
                 </div>
               </div>
@@ -1676,7 +1676,7 @@ export default function Landing() {
                     playsInline
                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   >
-                    <source src="https://dozvuosviqxeutfastqn.supabase.co/storage/v1/object/public/marketing/MeasureMode.mp4" type="video/mp4" />
+                    <source src="https://pub-1d97ce4db98043e5b06cf49e1b894e50.r2.dev/MeasureMode.mp4" type="video/mp4" />
                   </video>
                 </div>
               </div>
@@ -2119,7 +2119,7 @@ export default function Landing() {
                   borderRadius: 16,
                 }}
               >
-                <source src="https://dozvuosviqxeutfastqn.supabase.co/storage/v1/object/public/marketing/MakeMeasureDemoFull.mp4" type="video/mp4" />
+                <source src="https://pub-1d97ce4db98043e5b06cf49e1b894e50.r2.dev/MakeMeasureDemoFull.mp4" type="video/mp4" />
               </video>
             </div>
           </div>
