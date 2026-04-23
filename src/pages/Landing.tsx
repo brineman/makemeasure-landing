@@ -1323,18 +1323,18 @@ export default function Landing() {
                   margin: "0 auto",
                 }}
               >
-                A strategic partner for the whole team. It knows the brief. It knows the work. It knows the performance.
+                The AI that knows the brief, the work, and the performance. A strategic partner for the whole team.
               </div>
             </FadeIn>
 
-            <FadeIn delay={300}>
+            <FadeIn delay={500}>
               <div
                 style={{
                   fontFamily: FONT_BODY,
                   fontSize: 18,
                   color: "rgba(28,26,31,0.6)",
                   marginTop: 64,
-                  lineHeight: 2.2,
+                  lineHeight: 1.8,
                 }}
               >
                 What's the campaign strategy? Just ask.<br />
@@ -1414,7 +1414,7 @@ export default function Landing() {
                     letterSpacing: "0.12em",
                     color: "#1C1A1F",
                     fontWeight: 500,
-                  }}>01 | MAKE MODE</span>
+                  }}>MODE 01 | MAKE</span>
                 </div>
                 <h3
                   style={{
@@ -1516,7 +1516,7 @@ export default function Landing() {
                     letterSpacing: "0.12em",
                     color: "#1C1A1F",
                     fontWeight: 500,
-                  }}>02 |SHIP MODE</span>
+                  }}>MODE 02 | SHIP</span>
                 </div>
                 <h3
                   style={{
@@ -1618,7 +1618,7 @@ export default function Landing() {
                     letterSpacing: "0.12em",
                     color: "#1C1A1F",
                     fontWeight: 500,
-                  }}>03 | MEASURE MODE</span>
+                  }}>MODE 03 | MEASURE</span>
                 </div>
                 <h3
                   style={{
