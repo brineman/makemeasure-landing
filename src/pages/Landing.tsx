@@ -244,6 +244,7 @@ export default function Landing() {
   const [isVisible, setIsVisible] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
   const [showDemoModal, setShowDemoModal] = useState(false);
+  const [showFeaturesModal, setShowFeaturesModal] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const section3Ref = useRef<HTMLElement>(null);
   const section4Ref = useRef<HTMLElement>(null);
@@ -347,6 +348,15 @@ export default function Landing() {
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [showDemoModal]);
+
+  useEffect(() => {
+    if (!showFeaturesModal) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setShowFeaturesModal(false);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [showFeaturesModal]);
 
   const scrollTo = useCallback((id: string) => {
     const el = document.getElementById(id);
@@ -1809,20 +1819,14 @@ export default function Landing() {
                   </div>
                 </div>
 
-                {/* Right: Feature list */}
+                {/* Right: Feature highlights */}
                 <div className="pricing-features" style={{ textAlign: "left" }}>
                   {[
-                    "Strategy brief builder with AI-generated artifacts",
-                    "Infinite creative canvas with AI image generation",
-                    "AI Curator across every mode",
-                    "Pinterest drag-and-drop for visual inspiration",
-                    "Competitor ad research across Meta, TikTok, and Google",
-                    "Project management with kanban and calendar views",
-                    "Internal and external review and approvals",
-                    "Publishing to Instagram, YouTube, TikTok, Google, and Meta",
-                    "Performance dashboard for paid and organic",
-                    "Workspace collaboration for your whole team",
-                    "100 AI generation credits per month",
+                    "One creative workspace for the whole campaign.",
+                    "Strategic AI partner across every mode.",
+                    "Performance data creates the next brief in one click.",
+                    "Works with all major social platforms.",
+                    "Team and client comments/approvals in one system.",
                   ].map((feature, i) => (
                     <div key={i} style={{
                       fontFamily: FONT_MONO,
@@ -1834,6 +1838,25 @@ export default function Landing() {
                       · {feature}
                     </div>
                   ))}
+                  <button
+                    onClick={() => setShowFeaturesModal(true)}
+                    style={{
+                      fontFamily: FONT_MONO,
+                      fontSize: 12,
+                      color: "#F7FF9E",
+                      background: "none",
+                      border: "none",
+                      cursor: "pointer",
+                      marginTop: 16,
+                      letterSpacing: "0.02em",
+                      textDecoration: "underline",
+                      textUnderlineOffset: "4px",
+                      textDecorationThickness: "1px",
+                      padding: 0,
+                    }}
+                  >
+                    View all features →
+                  </button>
                 </div>
               </div>
             </FadeIn>
@@ -2145,6 +2168,260 @@ export default function Landing() {
             </div>
           </div>
         )}
+
+        {/* ═══════════════════════ FEATURES MODAL ═══════════════════════ */}
+        {showFeaturesModal && (
+          <div
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 9999,
+              backgroundColor: "rgba(0,0,0,0.5)",
+              backdropFilter: "blur(4px)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "40px 24px",
+            }}
+            onClick={() => setShowFeaturesModal(false)}
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                backgroundColor: "#F9F8F6",
+                borderRadius: 20,
+                width: "90vw",
+                maxWidth: 960,
+                maxHeight: "85vh",
+                overflowY: "auto",
+                WebkitOverflowScrolling: "touch",
+                boxShadow: "0 24px 80px rgba(0,0,0,0.2)",
+                position: "relative",
+              }}
+            >
+            {/* Header */}
+            <div style={{
+              position: "sticky",
+              top: 0,
+              zIndex: 10,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              padding: "24px 40px",
+              backgroundColor: "#F9F8F6",
+              borderBottom: "1px solid rgba(28,26,31,0.06)",
+            }}>
+              <img src="/MakeMeasureLogotype.png" alt="Make Measure" style={{ height: 16 }} />
+              <button
+                onClick={() => setShowFeaturesModal(false)}
+                style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: "50%",
+                  background: "rgba(28,26,31,0.05)",
+                  color: "#1C1A1F",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: 18,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                ×
+              </button>
+            </div>
+
+            {/* Title */}
+            <div style={{ textAlign: "center", padding: "60px 24px 48px" }}>
+              <div style={{
+                fontFamily: FONT_DISPLAY,
+                fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
+                color: "#1C1A1F",
+                lineHeight: 1.0,
+              }}>
+                Everything inside Make Measure.
+              </div>
+            </div>
+
+            {/* Feature Grid */}
+            <div
+              className="features-grid"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 48,
+                maxWidth: 1000,
+                margin: "0 auto",
+                padding: "0 40px 80px",
+              }}
+            >
+              {/* MAKE */}
+              <div>
+                <div style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "6px 14px",
+                  borderRadius: 9999,
+                  backgroundColor: "#F7FF9E",
+                  marginBottom: 20,
+                }}>
+                  <img src="/MMIconLoopBlack.gif" alt="" style={{ width: 18, height: 12 }} />
+                  <span style={{ fontFamily: FONT_MONO, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.12em", color: "#1C1A1F", fontWeight: 500 }}>MAKE</span>
+                </div>
+                <div style={{ fontFamily: FONT_DISPLAY, fontSize: 20, color: "#1C1A1F", marginBottom: 20, lineHeight: 1.2 }}>
+                  Strategy and Creative Direction
+                </div>
+                {[
+                  "The Curator in Make: strategic and creative thought partner",
+                  "Strategy brief builder guided by the Curator",
+                  "Strategy artifacts: personas, messaging, KPIs, creative tests, storyboards",
+                  "Copywriting with full project and brand context",
+                  "Infinite multiplayer canvas for design and moodboarding",
+                  "Pinterest drag-and-drop onto the canvas",
+                  "Ad library research across Meta, TikTok, and Google",
+                  "Are.na integration for visual references",
+                  "AI image generation: context-aware, 100 credits/month",
+                  "Design tools for asset creation and export",
+                  "Project overview: structured reading view of brief and feedback",
+                  "Brand asset library and brand guidelines",
+                  "Creative tests and storyboards as canvas artifacts",
+                  "Notifications for approvals, comments, and insights",
+                  "Real-time multiplayer collaboration",
+                ].map((f, i) => (
+                  <div key={i} style={{ fontFamily: FONT_BODY, fontSize: 13, color: "#6B6B6B", lineHeight: 1.8, display: "flex", gap: 8 }}>
+                    <span style={{ color: "#F7FF9E", fontSize: 16, lineHeight: "1.8" }}>·</span>
+                    <span>{f}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* SHIP */}
+              <div>
+                <div style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "6px 14px",
+                  borderRadius: 9999,
+                  backgroundColor: "#F7FF9E",
+                  marginBottom: 20,
+                }}>
+                  <img src="/MMIconLoopBlack.gif" alt="" style={{ width: 18, height: 12 }} />
+                  <span style={{ fontFamily: FONT_MONO, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.12em", color: "#1C1A1F", fontWeight: 500 }}>SHIP</span>
+                </div>
+                <div style={{ fontFamily: FONT_DISPLAY, fontSize: 20, color: "#1C1A1F", marginBottom: 20, lineHeight: 1.2 }}>
+                  Manage, Review, Publish
+                </div>
+                {[
+                  "The Curator in Ship: project management partner",
+                  "Kanban project management from canvas items",
+                  "Calendar view: month and week, drag to reschedule",
+                  "Internal approvals with auto-moving cards",
+                  "Client review portals: no sign-up required",
+                  "Publish to Instagram, YouTube, TikTok, Google, and Meta",
+                  "Scheduled publishing for organic platforms",
+                  "Share system with optional password protection",
+                ].map((f, i) => (
+                  <div key={i} style={{ fontFamily: FONT_BODY, fontSize: 13, color: "#6B6B6B", lineHeight: 1.8, display: "flex", gap: 8 }}>
+                    <span style={{ color: "#F7FF9E", fontSize: 16, lineHeight: "1.8" }}>·</span>
+                    <span>{f}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* MEASURE */}
+              <div>
+                <div style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "6px 14px",
+                  borderRadius: 9999,
+                  backgroundColor: "#F7FF9E",
+                  marginBottom: 20,
+                }}>
+                  <img src="/MMIconLoopBlack.gif" alt="" style={{ width: 18, height: 12 }} />
+                  <span style={{ fontFamily: FONT_MONO, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.12em", color: "#1C1A1F", fontWeight: 500 }}>MEASURE</span>
+                </div>
+                <div style={{ fontFamily: FONT_DISPLAY, fontSize: 20, color: "#1C1A1F", marginBottom: 20, lineHeight: 1.2 }}>
+                  The Learning Becomes the Next Brief
+                </div>
+                {[
+                  "The Curator in Measure: analytics and diagnosis partner",
+                  "Paid and organic performance in one dashboard",
+                  "Campaign deep dive with daily charts and attribution",
+                  "Glow system: colour-coded performance at a glance",
+                  "Creative fatigue detection before you notice it",
+                  "Performance insights in plain language",
+                  "Loop Trigger: one click to start the next strategy session",
+                  "Pattern analysis across all campaigns",
+                  "Official API integrations: Meta, Google, TikTok, YouTube, Instagram, Pinterest",
+                ].map((f, i) => (
+                  <div key={i} style={{ fontFamily: FONT_BODY, fontSize: 13, color: "#6B6B6B", lineHeight: 1.8, display: "flex", gap: 8 }}>
+                    <span style={{ color: "#F7FF9E", fontSize: 16, lineHeight: "1.8" }}>·</span>
+                    <span>{f}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CURATOR */}
+              <div>
+                <div style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  padding: "6px 14px",
+                  borderRadius: 9999,
+                  backgroundColor: "#F7FF9E",
+                  marginBottom: 20,
+                }}>
+                  <img src="/MMIconLoopBlack.gif" alt="" style={{ width: 18, height: 12 }} />
+                  <span style={{ fontFamily: FONT_MONO, fontSize: 10, textTransform: "uppercase", letterSpacing: "0.12em", color: "#1C1A1F", fontWeight: 500 }}>THE CURATOR</span>
+                </div>
+                <div style={{ fontFamily: FONT_DISPLAY, fontSize: 20, color: "#1C1A1F", marginBottom: 20, lineHeight: 1.2 }}>
+                  AI Across Every Mode
+                </div>
+                {[
+                  "Strategic partner: strategist, creative director, PM, or analyst depending on mode",
+                  "17 expert skills loaded automatically based on context",
+                  "Memory across projects: learns what works and what doesn't",
+                  "Brand-aware: reads your brand guide, tone, and visual references",
+                ].map((f, i) => (
+                  <div key={i} style={{ fontFamily: FONT_BODY, fontSize: 13, color: "#6B6B6B", lineHeight: 1.8, display: "flex", gap: 8 }}>
+                    <span style={{ color: "#F7FF9E", fontSize: 16, lineHeight: "1.8" }}>·</span>
+                    <span>{f}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom CTA */}
+            <div style={{ textAlign: "center", padding: "0 24px 80px" }}>
+              <a
+                href="https://app.makemeasure.com/auth"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "#1C1A1F",
+                  color: "#F9F8F6",
+                  borderRadius: 9999,
+                  padding: "16px 40px",
+                  fontSize: 14,
+                  fontFamily: FONT_DISPLAY,
+                  fontWeight: 300,
+                  textDecoration: "none",
+                  cursor: "pointer",
+                }}
+              >
+                Start your free trial →
+              </a>
+            </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Responsive Styles */}
@@ -2217,6 +2494,11 @@ export default function Landing() {
             .footer-row img {
               margin: 0 auto !important;
               display: block !important;
+            }
+            .features-grid {
+              grid-template-columns: 1fr !important;
+              padding: 0 24px 60px !important;
+              gap: 40px !important;
             }
           }
           @media (max-width: 768px) {
