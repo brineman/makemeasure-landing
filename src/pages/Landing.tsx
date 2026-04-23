@@ -1326,28 +1326,12 @@ export default function Landing() {
                 </div>
             </FadeIn>
 
-            <FadeIn delay={500}>
-              <div
-                style={{
-                  fontFamily: FONT_BODY,
-                  fontSize: 14,
-                  color: "rgba(28,26,31,0.6)",
-                  marginTop: 20,
-                  lineHeight: 1.4,
-                }}
-              >
-               
-                What's the campaign strategy? Just ask.<br />
-                What should the visual language be? Just ask.<br />
-                What was the thumb stop on our last Reel? Just ask.
-              </div>
-            </FadeIn>
-
+          
             <FadeIn delay={700}>
               <div
                 className="mode-video"
                 style={{
-                  width: "90%",
+                  width: "80%",
                   maxWidth: 1000,
                   aspectRatio: "16 / 9",
                   borderRadius: 20,
