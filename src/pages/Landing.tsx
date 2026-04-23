@@ -464,7 +464,7 @@ export default function Landing() {
         style={{
           height: "100vh",
           overflowY: "auto",
-          scrollSnapType: "y proximity",
+          scrollSnapType: "y mandatory",
           scrollBehavior: "smooth",
           backgroundColor: "#F8F8F6",
           color: colors.foreground,
@@ -760,10 +760,12 @@ export default function Landing() {
           className="hero-section"
           style={{
             position: "relative",
-            height: "160vh",
+            height: "150vh",
             backgroundColor: "#F8F8F6",
             zIndex: 1,
             paddingTop: 80,
+            paddingBottom: 40,
+            scrollSnapAlign: "start",
           }}
         >
           {/* Gradient + Dot Grid */}
