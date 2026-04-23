@@ -957,7 +957,7 @@ export default function Landing() {
                 playsInline
                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
               >
-                <source src="https://k1tncygcdn6g5xor.public.blob.vercel-storage.com/makemeasuredemo.mp4" type="video/mp4" />
+                <source src="https://dozvuosviqxeutfastqn.supabase.co/storage/v1/object/public/marketing/makemeasuredemo.mp4" type="video/mp4" />
               </video>
             </div>
           </div>
@@ -1289,7 +1289,7 @@ export default function Landing() {
           */}
 
           {/* Centered content */}
-          <div style={{ position: "relative", zIndex: 1, textAlign: "center", maxWidth: 900, padding: "0 24px" }}>
+          <div style={{ position: "relative", zIndex: 1, textAlign: "center", maxWidth: 1000, padding: "0 24px" }}>
             <FadeIn>
               <div style={{
                 display: "inline-flex",
@@ -1308,7 +1308,7 @@ export default function Landing() {
                   letterSpacing: "0.12em",
                   color: "#1C1A1F",
                   fontWeight: 500,
-                }}>MEET THE CURATOR</span>
+                }}>THREE MODES, ONE CURATOR</span>
               </div>
             </FadeIn>
 
@@ -1319,27 +1319,53 @@ export default function Landing() {
                   fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
                   color: "#1C1A1F",
                   lineHeight: 1.0,
-                  maxWidth: 900,
+                  maxWidth: 1100,
                   margin: "0 auto",
-                }}
-              >
-                The AI that knows the brief, the work, and the performance. A strategic partner for the whole team.
-              </div>
+                }}>
+                Meet the Curator. A strategic AI partner for the whole team, across all three modes.
+                </div>
             </FadeIn>
 
             <FadeIn delay={500}>
               <div
                 style={{
                   fontFamily: FONT_BODY,
-                  fontSize: 18,
+                  fontSize: 14,
                   color: "rgba(28,26,31,0.6)",
-                  marginTop: 64,
-                  lineHeight: 1.8,
+                  marginTop: 20,
+                  lineHeight: 1.4,
                 }}
               >
+               
                 What's the campaign strategy? Just ask.<br />
                 What should the visual language be? Just ask.<br />
                 What was the thumb stop on our last Reel? Just ask.
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={700}>
+              <div
+                className="mode-video"
+                style={{
+                  width: "90%",
+                  maxWidth: 1000,
+                  aspectRatio: "16 / 9",
+                  borderRadius: 20,
+                  overflow: "hidden",
+                  margin: "40px auto 0",
+                  backgroundColor: "#1C1A1F",
+                  boxShadow: "0 8px 40px rgba(0,0,0,0.08)",
+                }}
+              >
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                >
+                  <source src="https://dozvuosviqxeutfastqn.supabase.co/storage/v1/object/public/marketing/MMCurator.mp4" type="video/mp4" />
+                </video>
               </div>
             </FadeIn>
           </div>
@@ -1458,7 +1484,7 @@ export default function Landing() {
                     playsInline
                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   >
-                    <source src="https://k1tncygcdn6g5xor.public.blob.vercel-storage.com/MakeMode.mp4" type="video/mp4" />
+                    <source src="https://dozvuosviqxeutfastqn.supabase.co/storage/v1/object/public/marketing/MakeMode.mp4" type="video/mp4" />
                   </video>
                 </div>
               </div>
@@ -1560,7 +1586,7 @@ export default function Landing() {
                     playsInline
                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   >
-                    <source src="https://k1tncygcdn6g5xor.public.blob.vercel-storage.com/ShipMode.mp4" type="video/mp4" />
+                    <source src="https://dozvuosviqxeutfastqn.supabase.co/storage/v1/object/public/marketing/ShipMode.mp4" type="video/mp4" />
                   </video>
                 </div>
               </div>
@@ -1662,7 +1688,7 @@ export default function Landing() {
                     playsInline
                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   >
-                    <source src="https://k1tncygcdn6g5xor.public.blob.vercel-storage.com/MeasureMode.mp4" type="video/mp4" />
+                    <source src="https://dozvuosviqxeutfastqn.supabase.co/storage/v1/object/public/marketing/MeasureMode.mp4" type="video/mp4" />
                   </video>
                 </div>
               </div>
@@ -1975,7 +2001,7 @@ export default function Landing() {
                     marginTop: 24,
                   }}
                 >
-Make Measure is the tool I always wanted. I built it after years of seeing strategy docs ignored, performance separated from creative, and everything in between happening on a call or in someone's head. I wanted this work to live together in one space, so the work and the thinking stay connected.                </p>
+                  Make Measure is the tool I always wanted. I built it after years of seeing strategy docs ignored, performance separated from creative, and everything in between happening on a call or in someone's head. <br/>   I wanted this work to live together in one space, so the work and the thinking stay connected.                </p>
                 <p
                   style={{
                     fontFamily: FONT_BODY,
@@ -2105,7 +2131,7 @@ Make Measure is the tool I always wanted. I built it after years of seeing strat
                   borderRadius: 16,
                 }}
               >
-                <source src="https://k1tncygcdn6g5xor.public.blob.vercel-storage.com/MakeMeasureDemoFull.mp4" type="video/mp4" />
+                <source src="https://dozvuosviqxeutfastqn.supabase.co/storage/v1/object/public/marketing/MakeMeasureDemoFull.mp4" type="video/mp4" />
               </video>
             </div>
           </div>
