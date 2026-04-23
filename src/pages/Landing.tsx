@@ -1010,8 +1010,8 @@ export default function Landing() {
                     marginBottom: 10,
                   }}
                 >
-                  Making things has gotten easier.<br />
-                  Making the right things is just as hard.
+                  Making things has become easier.<br />
+                  Making the right things is still the same.
                 </div>
               </FadeIn>
 
@@ -1964,7 +1964,7 @@ export default function Landing() {
                     margin: 0,
                   }}
                 >
-                  After a decade leading brand and creative teams, I kept running into the same problem. Teams don't lack strategy, creativity, or ambition. The tools we use to manage our work aren't built for the way creative teams actually think.
+                  After a decade leading brand and creative teams, I kept running into the same problem. Teams don't lack strategy, creativity, or ambition. The tools we use to manage our work aren't built for the way modern marketing teams actually think.
                 </p>
                 <p
                   style={{
