@@ -1826,7 +1826,7 @@ export default function Landing() {
                     "Strategic AI partner across every mode.",
                     "Performance data creates the next brief in one click.",
                     "Works with all major social platforms.",
-                    "Team and client comments/approvals in one system.",
+                    "Team and client review in one system.",
                   ].map((feature, i) => (
                     <div key={i} style={{
                       fontFamily: FONT_MONO,
@@ -2274,21 +2274,21 @@ export default function Landing() {
                   Strategy and Creative Direction
                 </div>
                 {[
-                  "The Curator in Make: strategic and creative thought partner",
+                  "The Curator in Make - strategic and creative thought partner",
                   "Strategy brief builder guided by the Curator",
-                  "Strategy artifacts: personas, messaging, KPIs, creative tests, storyboards",
+                  "Strategy artifacts - personas, messaging, KPIs, creative tests, storyboards",
                   "Copywriting with full project and brand context",
                   "Infinite multiplayer canvas for design and moodboarding",
                   "Pinterest drag-and-drop onto the canvas",
-                  "Ad library research across Meta, TikTok, and Google",
-                  "Are.na integration for visual references",
-                  "AI image generation: context-aware, 100 credits/month",
+                  "Drag-and-drop ads library research across Meta, TikTok, and Google",
+                  "Drag visual references from Are.na onto the canvas",
+                  "AI image generation - context-aware, 100 credits/month",
                   "Design tools for asset creation and export",
-                  "Project overview: structured reading view of brief and feedback",
+                  "Project overview - structured view of brief and strategy artifacts",
                   "Brand asset library and brand guidelines",
                   "Creative tests and storyboards as canvas artifacts",
                   "Notifications for approvals, comments, and insights",
-                  "Real-time multiplayer collaboration",
+                  "Real-time multiplayer collaboration with the team",
                 ].map((f, i) => (
                   <div key={i} style={{ fontFamily: FONT_BODY, fontSize: 13, color: "#6B6B6B", lineHeight: 1.8, display: "flex", gap: 8 }}>
                     <span style={{ color: "#F7FF9E", fontSize: 16, lineHeight: "1.8" }}>·</span>
@@ -2315,14 +2315,14 @@ export default function Landing() {
                   Manage, Review, Publish
                 </div>
                 {[
-                  "The Curator in Ship: project management partner",
-                  "Kanban project management from canvas items",
-                  "Calendar view: month and week, drag to reschedule",
-                  "Internal approvals with auto-moving cards",
+                  "The Curator in Ship - project management partner",
+                  "Kanban project management with cards and assets",
+                  "Calendar view - month and week, drag to reschedule",
+                  "Internal reviews and approvals with auto-moving cards",
                   "Client review portals: no sign-up required",
-                  "Publish to Instagram, YouTube, TikTok, Google, and Meta",
+                  "Publish to Instagram, YouTube, TikTok, Google Ads, and Facebook Ads Manager",
                   "Scheduled publishing for organic platforms",
-                  "Share system with optional password protection",
+                  "Client share system with optional password protection",
                 ].map((f, i) => (
                   <div key={i} style={{ fontFamily: FONT_BODY, fontSize: 13, color: "#6B6B6B", lineHeight: 1.8, display: "flex", gap: 8 }}>
                     <span style={{ color: "#F7FF9E", fontSize: 16, lineHeight: "1.8" }}>·</span>
@@ -2349,11 +2349,11 @@ export default function Landing() {
                   The Learning Becomes the Next Brief
                 </div>
                 {[
-                  "The Curator in Measure: analytics and diagnosis partner",
+                  "The Curator in Measure - analytics and diagnosis partner",
                   "Paid and organic performance in one dashboard",
                   "Campaign deep dive with daily charts and attribution",
-                  "Glow system: colour-coded performance at a glance",
-                  "Creative fatigue detection before you notice it",
+                  "Glow system - colour-coded performance at a glance",
+                  "Creative fatigue detection",
                   "Performance insights in plain language",
                   "Loop Trigger: one click to start the next strategy session",
                   "Pattern analysis across all campaigns",
@@ -2384,10 +2384,10 @@ export default function Landing() {
                   AI Across Every Mode
                 </div>
                 {[
-                  "Strategic partner: strategist, creative director, PM, or analyst depending on mode",
+                  "Strategic partner  strategist, creative director, PM, or analyst depending on mode",
                   "17 expert skills loaded automatically based on context",
-                  "Memory across projects: learns what works and what doesn't",
-                  "Brand-aware: reads your brand guide, tone, and visual references",
+                  "Memory across projects - learns what works and what doesn't",
+                  "Brand-aware - reads your brand guide, tone, and visual references",
                 ].map((f, i) => (
                   <div key={i} style={{ fontFamily: FONT_BODY, fontSize: 13, color: "#6B6B6B", lineHeight: 1.8, display: "flex", gap: 8 }}>
                     <span style={{ color: "#F7FF9E", fontSize: 16, lineHeight: "1.8" }}>·</span>
