@@ -458,6 +458,16 @@ export default function Landing() {
             50% { transform: translateY(6px); opacity: 0.4; }
           }
 
+          @keyframes orbit {
+            from { offset-distance: 0%; }
+            to { offset-distance: 100%; }
+          }
+
+          @keyframes orbitTrail {
+            from { offset-distance: 0%; }
+            to { offset-distance: 100%; }
+          }
+
           @supports not (height: 100dvh) {
             .scroll-container {
               height: 100vh !important;
@@ -1150,18 +1160,21 @@ export default function Landing() {
                     </g>
 
                     {/* Animated trailing glow */}
-                    <circle r="10" fill="#F7FF9E" opacity="0.15">
-                      <animateMotion dur="8s" repeatCount="indefinite" rotate="auto" begin="0.3s">
-                        <mpath href="#loopPath" />
-                      </animateMotion>
-                    </circle>
+                    <circle r="10" fill="#F7FF9E" opacity="0.15"
+                      style={{
+                        offsetPath: "circle(130px at 180px 180px)",
+                        animation: "orbit 8s linear infinite",
+                        animationDelay: "0.3s",
+                      } as any}
+                    />
 
                     {/* Animated glow dot */}
-                    <circle r="6" fill="#F7FF9E" filter="url(#glow)">
-                      <animateMotion dur="8s" repeatCount="indefinite" rotate="auto">
-                        <mpath href="#loopPath" />
-                      </animateMotion>
-                    </circle>
+                    <circle r="6" fill="#F7FF9E" filter="url(#glow)"
+                      style={{
+                        offsetPath: "circle(130px at 180px 180px)",
+                        animation: "orbit 8s linear infinite",
+                      } as any}
+                    />
                   </svg>
               </FadeIn>
 
