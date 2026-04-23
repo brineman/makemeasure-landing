@@ -1229,7 +1229,7 @@ export default function Landing() {
                     marginTop: 48,
                   }}
                 >
-                  Creative work runs on taste, judgment, cultural intuition. On making someone feel something. As AI content floods every feed, work that feels truly creative becomes the rarest thing. 
+                  Creative work runs on taste. On cultural intuition. On making someone feel something. As AI content floods every feed, work that feels truly creative becomes the rarest thing. 
                   </p>
                   <p
                   style={{
@@ -1414,7 +1414,7 @@ export default function Landing() {
                     letterSpacing: "0.12em",
                     color: "#1C1A1F",
                     fontWeight: 500,
-                  }}>MAKE MODE</span>
+                  }}>01 | MAKE MODE</span>
                 </div>
                 <h3
                   style={{
@@ -1516,7 +1516,7 @@ export default function Landing() {
                     letterSpacing: "0.12em",
                     color: "#1C1A1F",
                     fontWeight: 500,
-                  }}>SHIP MODE</span>
+                  }}>02 |SHIP MODE</span>
                 </div>
                 <h3
                   style={{
@@ -1618,7 +1618,7 @@ export default function Landing() {
                     letterSpacing: "0.12em",
                     color: "#1C1A1F",
                     fontWeight: 500,
-                  }}>MEASURE MODE</span>
+                  }}>03 | MEASURE MODE</span>
                 </div>
                 <h3
                   style={{
@@ -1793,7 +1793,7 @@ export default function Landing() {
                       fontFamily: FONT_MONO,
                       fontSize: 12,
                       color: "rgba(255,255,255,0.9)",
-                      lineHeight: 2.2,
+                      lineHeight: 1.6,
                       letterSpacing: "0.02em",
                     }}>
                       · {feature}
@@ -1885,8 +1885,8 @@ export default function Landing() {
                   src="/BrentEthanFreedmanHeadshot4.png"
                   alt="Brent Ethan Freedman"
                   style={{
-                    width: 280,
-                    height: 340,
+                    width: 260,
+                    height: 320,
                     objectFit: "cover",
                     borderRadius: 16,
                     marginBottom: 28,
