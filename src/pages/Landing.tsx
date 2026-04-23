@@ -143,13 +143,13 @@ function SteppedLines() {
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setActiveIndex(0);
-        } else {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
+          setActiveIndex((prev) => prev < 0 ? 0 : prev);
+        } else if (!entry.isIntersecting) {
           setActiveIndex(-1);
         }
       },
-      { threshold: 0.2 },
+      { threshold: 0.3 },
     );
     observer.observe(el);
     return () => observer.disconnect();
