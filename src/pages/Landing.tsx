@@ -186,25 +186,25 @@ function SteppedLines() {
             {i > 0 && (
               <svg
                 width="24"
-                height="32"
+                height="20"
                 viewBox="0 0 24 32"
                 style={{
                   display: "block",
-                  margin: "12px auto",
+                  margin: "10px auto",
                   transition: "opacity 0.6s ease",
                   opacity: activeIndex >= i ? 1 : 0,
                 }}
               >
-                <circle cx="12" cy="4" r="2" fill="rgba(28,26,31,0.1)" />
-                <line x1="12" y1="8" x2="12" y2="24" stroke="rgba(28,26,31,0.1)" strokeWidth="1" />
-                <path d="M 8 20 L 12 26 L 16 20" stroke="rgba(28,26,31,0.12)" strokeWidth="1" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                <circle cx="12" cy="4" r="2" fill="rgba(255,255,255,0.15)" />
+                <line x1="12" y1="8" x2="12" y2="24" stroke="rgba(255,255,255,0.15)" strokeWidth="1" />
+                <path d="M 8 20 L 12 26 L 16 20" stroke="rgba(255,255,255,0.15)" strokeWidth="1" fill="none" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             )}
             <div
               style={{
                 fontFamily: FONT_BODY,
                 fontSize: 16,
-                color: "#1C1A1F",
+                color: "#FFFEFB",
                 transition: "opacity 0.6s ease",
                 opacity: activeIndex >= i ? 1 : 0.3,
                 lineHeight: 1.6,
@@ -248,13 +248,15 @@ export default function Landing() {
   const section4Ref = useRef<HTMLElement>(null);
   const section8Ref = useRef<HTMLElement>(null);
   const section9Ref = useRef<HTMLElement>(null);
+  const section2Ref = useRef<HTMLElement>(null);
   const heroRef = useRef<HTMLElement>(null);
   const [videoScale, setVideoScale] = useState(0);
   const [section3Near, setSection3Near] = useState(false);
   const [section4Near, setSection4Near] = useState(false);
   const [section8Near, setSection8Near] = useState(false);
   const [section9Near, setSection9Near] = useState(false);
-  const shaderVisible = section3Near || section4Near || section8Near || section9Near;
+  const [section2Near, setSection2Near] = useState(false);
+  const shaderVisible = section2Near || section3Near || section4Near || section8Near || section9Near;
 
   // Hero entrance — double RAF so browser paints hidden state first
   useEffect(() => {
@@ -299,16 +301,18 @@ export default function Landing() {
     return () => container.removeEventListener("scroll", handleVideoScale);
   }, []);
 
-  // Shader visibility (GPU management — mount when Section 3, 4, 8, or 9 is near viewport)
+  // Shader visibility (GPU management — mount when Section 2, 3, 4, 8, or 9 is near viewport)
   useEffect(() => {
+    const s2 = section2Ref.current;
     const s3 = section3Ref.current;
     const s4 = section4Ref.current;
     const s8 = section8Ref.current;
     const s9 = section9Ref.current;
-    if (!s3 || !s4 || !s8 || !s9) return;
+    if (!s2 || !s3 || !s4 || !s8 || !s9) return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          if (entry.target === s2) setSection2Near(entry.isIntersecting);
           if (entry.target === s3) setSection3Near(entry.isIntersecting);
           if (entry.target === s4) setSection4Near(entry.isIntersecting);
           if (entry.target === s8) setSection8Near(entry.isIntersecting);
@@ -317,6 +321,7 @@ export default function Landing() {
       },
       { rootMargin: "200px" },
     );
+    observer.observe(s2);
     observer.observe(s3);
     observer.observe(s4);
     observer.observe(s8);
@@ -964,8 +969,7 @@ export default function Landing() {
         </section>
 
         {/* ═══════════════════════ SECTION 2: THE REALITY ═══════════════════════ */}
-        <section style={{ position: "relative", backgroundColor: "#F8F8F6", zIndex: 1, scrollSnapAlign: "start", scrollSnapStop: "always" }}>
-          <DotGrid id="dotGrid2" />
+        <section ref={section2Ref} style={{ position: "relative", backgroundColor: "transparent", zIndex: 1, scrollSnapAlign: "start", scrollSnapStop: "always" }}>
           <div
             style={{
               position: "relative",
@@ -983,17 +987,17 @@ export default function Landing() {
                   gap: 8,
                   padding: "6px 14px",
                   borderRadius: 9999,
-                  backgroundColor: "#F7FF9E",
+                  backgroundColor: "rgba(247,255,158,0.15)",
                   marginBottom: 30,
                   marginTop: 20,
                 }}>
-                  <img src="/MMIconLoopBlack.gif" alt="" style={{ width: 18, height: 12 }} />
+                  <img src="/MMIconLoopBlack.gif" alt="" style={{ width: 18, height: 12, filter: "invert(1)" }} />
                   <span style={{
                     fontFamily: FONT_MONO,
                     fontSize: 12,
                     textTransform: "uppercase",
                     letterSpacing: "0.12em",
-                    color: "#1C1A1F",
+                    color: "#FFFEFB",
                     fontWeight: 500,
                   }}>WE ALL FEEL THIS</span>
                 </div>
@@ -1004,7 +1008,7 @@ export default function Landing() {
                   style={{
                     fontFamily: FONT_DISPLAY,
                     fontSize: "clamp(1.8rem, 4.5vw, 3.2rem)",
-                    color: "#1C1A1F",
+                    color: "#FFFEFB",
                     lineHeight: 1.0,
                     textAlign: "center",
                     marginBottom: 10,
