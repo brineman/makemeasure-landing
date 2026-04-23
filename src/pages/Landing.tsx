@@ -145,7 +145,8 @@ function SteppedLines() {
       ([entry]) => {
         if (entry.isIntersecting) {
           setActiveIndex(0);
-          observer.unobserve(el);
+        } else {
+          setActiveIndex(-1);
         }
       },
       { threshold: 0.2 },
@@ -319,7 +320,7 @@ export default function Landing() {
           if (entry.target === s9) setSection9Near(entry.isIntersecting);
         });
       },
-      { rootMargin: "200px" },
+      { rootMargin: "600px" },
     );
     observer.observe(s2);
     observer.observe(s3);
@@ -481,7 +482,7 @@ export default function Landing() {
       >
         {/* Fixed shader layer for Sections 3+4 */}
         {shaderVisible && (
-          <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none" }}>
+          <div style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none", backgroundColor: "#1C1A1F" }}>
             <ShaderBackground colorBack="#1C1A1F" colors={["#F7FF9E", "#F7FF9E", "#F7FF9E"]} />
           </div>
         )}
