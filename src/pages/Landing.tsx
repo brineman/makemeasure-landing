@@ -864,7 +864,7 @@ export default function Landing() {
               style={{
                 fontFamily: fonts.body,
                 fontSize: "clamp(1rem, 2vw, 1.1rem)",
-                color: colors.muted,
+                color: "#1C1C1C",
                 maxWidth: 560,
                 lineHeight: 1.3,
                 margin: "0 auto 40px",
@@ -1903,7 +1903,7 @@ export default function Landing() {
               className="about-columns"
             >
               {/* ═══════════════════════ Left column ═══════════════════════ */}
-              <div style={{ width: 320, flexShrink: 0 }} className="about-left">
+              <div style={{ width: 280, flexShrink: 0 }} className="about-left">
                 <img
                   src="/BrentEthanFreedmanHeadshot4.png"
                   alt="Brent Ethan Freedman"
