@@ -975,7 +975,6 @@ export default function Landing() {
               style={{
                 width: `${40 + videoScale * 55}%`,
                 maxWidth: 1100,
-                aspectRatio: "16 / 9",
                 borderRadius: `${15 - videoScale * 4}px`,
                 overflow: "hidden",
                 boxShadow: `0 ${8 + videoScale * 12}px ${40 + videoScale * 30}px rgba(0,0,0,${0.08 + videoScale * 0.1})`,
@@ -983,15 +982,17 @@ export default function Landing() {
                 cursor: "pointer",
               }}
             >
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-              >
-                <source src="https://pub-1d97ce4db98043e5b06cf49e1b894e50.r2.dev/makemeasuredemo.mp4" type="video/mp4" />
-              </video>
+              <div style={{ position: "relative", width: "100%", paddingBottom: "56.25%", height: 0 }}>
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                >
+                  <source src="https://pub-1d97ce4db98043e5b06cf49e1b894e50.r2.dev/makemeasuredemo.mp4" type="video/mp4" />
+                </video>
+              </div>
             </div>
           </div>
         </section>
@@ -2022,7 +2023,7 @@ export default function Landing() {
                     margin: 0,
                   }}
                 >
-                  After a decade leading brand and creative teams, I kept running into the same problem. Teams don't lack strategy, creativity, or ambition. The tools we use to manage our work aren't built for the way modern marketing teams actually think.
+                  After a decade leading brand and creative teams, I kept running into the same problem. Teams don't lack strategy, creativity, or ambition. Our tools for managing our work aren't built for the way modern marketing teams actually think.
                 </p>
                 <p
                   style={{
