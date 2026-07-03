@@ -131,7 +131,7 @@ const steppedLineTexts = [
   "The project is managed in another tool.",
   "The feedback happens in a thread nobody can find.",
   "The performance lives in yet another dashboard.",
-  "And the connection between them lives in someone's head.",
+  "And the campaign itself lives in someone's head.",
 ];
 
 function SteppedLines() {
@@ -1043,8 +1043,8 @@ export default function Landing() {
                     marginBottom: 10,
                   }}
                 >
-                  Making things has become easier.<br />
-                  Making the right things is still the same.
+                  Creating content has gotten easier.<br />
+                  Creating a campaign is still the same.
                 </div>
               </FadeIn>
 
