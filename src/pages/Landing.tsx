@@ -889,7 +889,7 @@ export default function Landing() {
                 margin: "0 auto 40px",
               }}
             >
-             One creative workspace where building strategy, managing projects, posting content, and measuring performance work together.
+          Where teams run campaigns together, from brief to performance.
             </p>
 
             <div
