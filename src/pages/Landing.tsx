@@ -128,10 +128,10 @@ function DotGrid({ id }: { id: string }) {
 const steppedLineTexts = [
   "The brief lives in a doc nobody reopened.",
   "The creative is made somewhere else entirely.",
-  "The project is managed in another tool.",
   "The feedback happens in a thread nobody can find.",
   "The performance lives in yet another dashboard.",
-  "And the campaign itself lives in someone's head.",
+  "It's all somewhere else or in someone's head.",
+  "Make Measure brings it together.",
 ];
 
 function SteppedLines() {
