@@ -2023,7 +2023,7 @@ export default function Landing() {
                     margin: 0,
                   }}
                 >
-                  After a decade leading brand and creative teams, I kept running into the same problem. Teams don't lack strategy, creativity, or ambition. Our tools for managing our work aren't built for the way modern marketing teams actually think.
+                  After a decade leading creative teams, I kept running into the same problem. Teams don't lack strategy, creativity, or ambition. Our tools for managing our work aren't built for the way modern marketing teams actually think.
                 </p>
                 <p
                   style={{
