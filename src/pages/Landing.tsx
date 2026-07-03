@@ -2023,7 +2023,7 @@ export default function Landing() {
                     margin: 0,
                   }}
                 >
-                  After a decade leading creative teams, I kept running into the same problem. Teams don't lack strategy, creativity, or ambition. Our tools for managing our work aren't built for the way modern marketing teams actually think.
+                  After a decade leading creative teams, I kept running into the same problem. Teams don't lack ideas or ambition. Our tools for collaborating aren't built for the way modern marketing teams actually think.
                 </p>
                 <p
                   style={{
@@ -2034,7 +2034,7 @@ export default function Landing() {
                     marginTop: 24,
                   }}
                 >
-                  Make Measure is the tool I always wanted. I built it after years of seeing strategy docs ignored, performance separated from creative, and everything in between happening on a call or in someone's head. I wanted this work to live together in one space, so the work and the thinking stay connected.                </p>
+                  Make Measure is the organizational tool I always wanted. I built it after years of seeing strategy docs ignored, performance siloed from creative, and everything in between happening on a call or in someone's head. Campaigns should live together in one space, so the work and the thinking stay connected.                </p>
                 <p
                   style={{
                     fontFamily: FONT_BODY,
