@@ -889,7 +889,7 @@ export default function Landing() {
                 margin: "0 auto 40px",
               }}
             >
-          Where teams build campaigns together, from brief to performance.
+          Where teams create campaigns together, from brief to performance.
             </p>
 
             <div
