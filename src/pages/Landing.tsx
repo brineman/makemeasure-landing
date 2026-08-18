@@ -990,7 +990,7 @@ export default function Landing() {
                   playsInline
                   style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                 >
-                  <source src="https://pub-1d97ce4db98043e5b06cf49e1b894e50.r2.dev/makemeasuredemo.mp4" type="video/mp4" />
+                  <source src="https://dozvuosviqxeutfastqn.supabase.co/storage/v1/object/public/marketing/MakeMeasureDemo.mp4" type="video/mp4" />
                 </video>
               </div>
             </div>
