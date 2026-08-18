@@ -2164,7 +2164,7 @@ export default function Landing() {
                   borderRadius: 16,
                 }}
               >
-                <source src="https://dozvuosviqxeutfastqn.supabase.co/storage/v1/object/public/marketing/MakeMeasureDemo.mp4" />
+                <source src="https://dozvuosviqxeutfastqn.supabase.co/storage/v1/object/public/marketing/MakeMeasureDemo2.mp4" />
               </video>
             </div>
           </div>
