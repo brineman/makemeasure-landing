@@ -587,6 +587,7 @@ export default function Landing() {
                 ))}
               </div>
 
+              <!--
               {/* Desktop CTA */}
               <div
                 style={{ display: "flex", alignItems: "center", gap: "16px" }}
@@ -628,6 +629,7 @@ export default function Landing() {
                   Get Started
                 </a>
               </div>
+         -->     
 
               {/* Mobile Menu Button */}
               <button
@@ -724,8 +726,9 @@ export default function Landing() {
                   </a>
                 ))}
               </div>
-
-              <div
+              <!--
+              
+                <div
                 style={{
                   display: "flex",
                   gap: "16px",
@@ -779,7 +782,7 @@ export default function Landing() {
             </div>
           </div>
         </header>
-
+-->
         {/* ═══════════════════════ SECTION 1: HERO ═══════════════════════ */}
         <section
           ref={heroRef}
@@ -1862,6 +1865,7 @@ export default function Landing() {
               </div>
             </FadeIn>
 
+            <!--
             {/* ═══════════════════════ CTA ═══════════════════════ */}
             <FadeIn delay={450}>
               <a
@@ -1896,7 +1900,8 @@ export default function Landing() {
             </FadeIn>
           </div>
         </section>
-
+          -->
+          
         {/* ═══════════════════════ SECTION 8: ABOUT ═══════════════════════ */}
         <section
           ref={section9Ref}
@@ -2398,6 +2403,7 @@ export default function Landing() {
               </div>
             </div>
 
+              <!--
             {/* Bottom CTA */}
             <div style={{ textAlign: "center", padding: "0 24px 80px" }}>
               <a
@@ -2424,6 +2430,7 @@ export default function Landing() {
           </div>
         )}
       </div>
+          -->
 
       {/* Responsive Styles */}
       <style>
